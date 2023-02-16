@@ -22,7 +22,7 @@ public class Prueba {
                 "postgres",
                 "equipodebases"
         );
-
+//asdij+as{dijAÍDJASPDEFOJASLDF
         IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) {};
         new LoginForm(clientesDAO).setVisible(true);
     }

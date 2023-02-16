@@ -133,7 +133,7 @@ public class LoginForm extends javax.swing.JFrame {
       if(isInfoRequieres()){
           insertar();
       }else{
-          JOptionPane.showMessageDialog(this, "Rellene todos los campos");
+          JOptionPane.showMessageDialog(this, "asdasdasdasdasda");
       }
     }//GEN-LAST:event_loginBTActionPerformed
 
