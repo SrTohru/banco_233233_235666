@@ -27,7 +27,7 @@ public class ConexionBD implements IConexionBD{
     
     @Override
     public Connection crearConexion() throws SQLException{
-        String cadenaConexion = "jdbc://mysql://localhost/banco";
+      
         Connection conexion = DriverManager.getConnection(CADENA_CONEXION, USUARIO, PASSWORD);
         return conexion;
     }

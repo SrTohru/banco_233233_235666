@@ -12,7 +12,7 @@ import com.banco.dominio.Cliente;
  */
 public interface IClienteDAO {
     
-    Cliente registrarse ();
+    Cliente registrarse (String user, String password);
     Cliente actualizar ();
     Cliente cancelarCuenta ();
     
