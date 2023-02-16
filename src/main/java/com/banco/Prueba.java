@@ -21,6 +21,8 @@ public class Prueba {
                 "root",
                 "2210"
         );
+        
+        System.out.println("Testing commit");
    //     IClienteDAO clientesDAO = new IClienteDAO(manejadorConexiones) {};
   //      new ClienteForm(clientesDAO).setVisible(true);
     }
