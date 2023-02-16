@@ -35,9 +35,7 @@ public class RegistroFrom extends javax.swing.JFrame {
         }
         return true;
     }
-    private void test(){
-        
-    }
+  
     private Cliente extraerDatosFormulario() {
         String nombre = this.nameTF.getText();
         String apellidoPaterno = this.apellidoTF.getText();
@@ -53,6 +51,10 @@ public class RegistroFrom extends javax.swing.JFrame {
                 "Información ", JOptionPane.INFORMATION_MESSAGE);
     }
 
+      private void test(){
+        
+    }
+    
     private void mostrarMensajeErrorClienteGuardado() {
         JOptionPane.showMessageDialog(this, "No fue posible agregar al cliente", "Error", JOptionPane.OK_OPTION);
 

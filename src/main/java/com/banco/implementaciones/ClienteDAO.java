@@ -21,9 +21,7 @@ public class ClienteDAO implements IClienteDAO {
         this.GENERADOR_CONEXIONES = generadorConexiones;
     }
 
-    private void test(){
-        
-    }
+   
     
     @Override
     public Cliente registrarse(Cliente cliente) {

@@ -30,4 +30,8 @@ public class Prueba {
 
 //new RegistroFrom().setVisible(true);
     }
+    
+      private void test(){
+        
+    }
 }
