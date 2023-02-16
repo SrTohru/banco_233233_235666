@@ -20,18 +20,14 @@ public class Prueba {
 
     public static void main(String[] args) {
         IConexionBD manejadorConexiones = new ConexionBD(
-                "db.ptkzapmsarobjneirtfj.supabase.co:5432/postgres",
-                "postgres",
-                "equipodebases"
+                "jdbc:mysql://localhost/banco",
+                "root",
+                "2210"
         );
 
-//        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) {};
-//        new LoginForm(clientesDAO).setVisible(true);
-
-//new RegistroFrom().setVisible(true);
+        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) {};
+        new LoginForm(clientesDAO).setVisible(true);
+        //new RegistroFrom().setVisible(true);
     }
-    
-      private void test(){
-        
-    }
+   
 }

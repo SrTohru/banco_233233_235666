@@ -87,6 +87,4 @@ public class Cuenta {
         return Objects.equals(this.id, other.id);
     }
     
-    
-    
 }

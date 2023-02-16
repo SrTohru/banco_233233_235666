@@ -11,4 +11,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <exec.mainClass>com.mycompany.banco_233233_235666.Banco_233233_235666</exec.mainClass>
     </properties>
+   
+    <dependencies>
+        <dependency>
+            <groupId>com.oracle</groupId>         
+            <artifactId>ojdbc7</artifactId>         
+            <version>12.2.0.1</version>
+        </dependency>       
+    </dependencies>
+    
 </project>
