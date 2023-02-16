@@ -5,10 +5,12 @@
 package com.banco;
 
 import com.banco.displays.LoginForm;
+import com.banco.displays.RegistroFrom;
 import com.banco.implementaciones.ClienteDAO;
 import com.banco.implementaciones.ConexionBD;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.IConexionBD;
+
 
 /**
  *
@@ -18,12 +20,14 @@ public class Prueba {
 
     public static void main(String[] args) {
         IConexionBD manejadorConexiones = new ConexionBD(
-                "db.ptkzapmsarobjneirtfj.supabase.co",
+                "db.ptkzapmsarobjneirtfj.supabase.co:5432/postgres",
                 "postgres",
                 "equipodebases"
         );
-//asdij+as{dijAÍDJASPDEFOJASLDF
-        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) {};
-        new LoginForm(clientesDAO).setVisible(true);
+
+//        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) {};
+//        new LoginForm(clientesDAO).setVisible(true);
+
+//new RegistroFrom().setVisible(true);
     }
 }
