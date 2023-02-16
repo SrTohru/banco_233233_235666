@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class ClienteDAO implements IClienteDAO {
@@ -25,15 +26,15 @@ public class ClienteDAO implements IClienteDAO {
     
     @Override
     public Cliente registrarse(Cliente cliente) {
-        String codigoSQL = "insert into users (nombre, apellidoPaterno, apellidoMaterno, FechaNacimiento, IdDireccion) values(?,?,?,?,?)";
+        String codigoSQL = "insert into clientes (nombre, apellidoPaterno, apellidoMaterno, FechaNacimiento, IdDireccion) values(?,?,?,?,?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
-                PreparedStatement comando = conexion.prepareStatement(codigoSQL);) {
+                PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
 
             comando.setString(1, cliente.getNombre());
             comando.setString(2, cliente.getApellidoPaterno());
             comando.setString(3, cliente.getApelldioMaterno());
-            comando.setString(4, "10/12/2022");
+            comando.setString(4, "2010-02-20");
             comando.setInt(5, 1);
 
             comando.executeUpdate();
@@ -45,7 +46,6 @@ public class ClienteDAO implements IClienteDAO {
             }
 
         } catch (SQLException e) {
-            //LOG.log(Level.SEVERE, e.getMessage());
             return null;
         }
         return null;
