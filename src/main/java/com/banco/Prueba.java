@@ -4,8 +4,9 @@
  */
 package com.banco;
 
+import com.banco.displays.InicioForm;
 import com.banco.displays.LoginForm;
-import com.banco.displays.RegistroFrom;
+import com.banco.displays.RegistroForm;
 import com.banco.implementaciones.ClienteDAO;
 import com.banco.implementaciones.ConexionBD;
 import com.banco.interfaces.IClienteDAO;
@@ -26,7 +27,7 @@ public class Prueba {
         );
 //finish this
         IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) ;
-      new RegistroFrom(clientesDAO).setVisible(true);
+      new InicioForm(clientesDAO).setVisible(true);
     }
    
 }

@@ -5,6 +5,7 @@
 package com.banco.interfaces;
 
 import com.banco.dominio.Cliente;
+import com.banco.dominio.Direccion;
 
 /**
  *
@@ -13,6 +14,7 @@ import com.banco.dominio.Cliente;
 public interface IClienteDAO {
     
     Cliente registrarse (Cliente cliente);
+    Direccion ingresarDireccion(Direccion direccion);
     Cliente actualizar ();
     Cliente cancelarCuenta ();
     

@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author Usuario
  */
 public class Cliente {
-    
+
     private Integer id;
     private String nombre;
     private String apellidoPaterno;
@@ -22,8 +22,6 @@ public class Cliente {
 
     public Cliente() {
     }
-    
-    
 
     public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno, Integer idDireccion) {
         this.nombre = nombre;
@@ -37,6 +35,15 @@ public class Cliente {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apelldioMaterno = apelldioMaterno;
+        this.idDireccion = idDireccion;
+    }
+
+    public Cliente(Integer id, String nombre, String apellidoPaterno, String apelldioMaterno, String fechaNacimiento, Integer idDireccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apelldioMaterno = apelldioMaterno;
+        this.fechaNacimiento = fechaNacimiento;
         this.idDireccion = idDireccion;
     }
 
@@ -105,7 +112,7 @@ public class Cliente {
     public void setIdDireccion(Integer idDireccion) {
         this.idDireccion = idDireccion;
     }
-    
+
     @Override
     public String toString() {
         return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apelldioMaterno=" + apelldioMaterno + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", idDireccion=" + idDireccion + '}';
@@ -117,7 +124,7 @@ public class Cliente {
         hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -150,5 +157,5 @@ public class Cliente {
         }
         return Objects.equals(this.idDireccion, other.idDireccion);
     }
-    
+
 }
