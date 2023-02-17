@@ -24,7 +24,7 @@ public class Prueba {
                 "root",
                 "joseeduardo"
         );
-
+//finish this
         IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) ;
       new RegistroFrom(clientesDAO).setVisible(true);
     }

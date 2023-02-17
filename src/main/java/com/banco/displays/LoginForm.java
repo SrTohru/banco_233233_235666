@@ -18,7 +18,7 @@ public class LoginForm extends javax.swing.JFrame {
         this.clientesDAO = clientesDAO;
         initComponents();
     }
-
+//finish this
     
     public void insertar(){
         if(isInfoRequieres()){

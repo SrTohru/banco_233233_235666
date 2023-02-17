@@ -42,7 +42,7 @@ public class RegistroFrom extends javax.swing.JFrame {
         String apellidoMaterno = this.apellidoMTF.getText();
       
         Integer idDireccion = 1; //TODO: CAMBIAR POR VALOR DE COMBO
-
+// FINISH THIS
         Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, idDireccion);
         return cliente;
     }
