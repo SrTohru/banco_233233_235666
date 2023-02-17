@@ -36,14 +36,14 @@ public class ClienteDAO implements IClienteDAO {
             comando.setString(2, cliente.getApellidoPaterno());
             comando.setString(3, cliente.getApelldioMaterno());
             comando.setString(4, cliente.getFechaNacimiento());
-            comando.setInt(5, 4);
+            comando.setInt(5, 1);
 
             comando.executeUpdate();
             ResultSet generatedKeys = comando.getGeneratedKeys();
 
-          if (generatedKeys.next()) {
-                int posicionLlavePrimaria = 1;
-                cliente.setId(generatedKeys.getInt(posicionLlavePrimaria));
+          if(generatedKeys.next()) {
+                Integer llavePrimaria = generatedKeys.getInt(1);
+                cliente.setId(llavePrimaria);
                 return cliente;
             }
 
@@ -54,7 +54,7 @@ public class ClienteDAO implements IClienteDAO {
     }
 
     @Override
-    public Cliente actualizar() {
+    public Cliente actualizar(Cliente cliente) {
         return null;
     }
 
@@ -65,10 +65,9 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public Direccion ingresarDireccion(Direccion direccion) {
-        String codigoSQL = "insert into direcciones (calle, colonia, numexterior) values(?,?,?)";
+        String codigoSQL = "insert into direcciones (Calle, Colonia, NumExterior) values(?,?,?)";
         try (
-                Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
-                PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
+                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();  PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
 
             comando.setString(1, direccion.getCalle());
             comando.setString(2, direccion.getColonia());
@@ -77,9 +76,9 @@ public class ClienteDAO implements IClienteDAO {
             comando.executeUpdate();
             ResultSet generatedKeys = comando.getGeneratedKeys();
 
-              if (generatedKeys.next()) {
-                int posicionLlavePrimaria = 1;
-                direccion.setId(generatedKeys.getInt(posicionLlavePrimaria));
+            if (generatedKeys.next()) {
+                Integer llavePrimaria = generatedKeys.getInt(1);
+                direccion.setId(llavePrimaria);
                 return direccion;
             }
 

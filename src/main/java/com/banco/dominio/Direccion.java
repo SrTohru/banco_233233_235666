@@ -23,8 +23,6 @@ public class Direccion {
         this.numExterior = numExterior;
     }
  
-    
-    
     public Integer getId() {
         return id;
     }

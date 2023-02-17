@@ -15,8 +15,7 @@ public interface IClienteDAO {
     
     Cliente registrarse (Cliente cliente);
     Direccion ingresarDireccion(Direccion direccion);
-    Cliente actualizar ();
+    Cliente actualizar (Cliente cliente);
     Cliente cancelarCuenta ();
-    
-    
+ 
 }
