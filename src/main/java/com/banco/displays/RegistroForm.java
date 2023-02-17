@@ -93,6 +93,7 @@ public class RegistroForm extends javax.swing.JFrame {
         numeroTF = new javax.swing.JTextField();
         coloniaTF = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        regresoBT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 255));
@@ -168,14 +169,25 @@ public class RegistroForm extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel10.setText("Direccion");
 
+        regresoBT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        regresoBT.setText("Regresar");
+        regresoBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresoBTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(regresoBT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +232,9 @@ public class RegistroForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(regresoBT))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -280,6 +294,11 @@ public class RegistroForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_coloniaTFActionPerformed
 
+    private void regresoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresoBTActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_regresoBTActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidoMTF;
@@ -300,5 +319,6 @@ public class RegistroForm extends javax.swing.JFrame {
     private javax.swing.JTextField nameTF;
     private javax.swing.JTextField numeroTF;
     private javax.swing.JButton registerBT;
+    private javax.swing.JButton regresoBT;
     // End of variables declaration//GEN-END:variables
 }
