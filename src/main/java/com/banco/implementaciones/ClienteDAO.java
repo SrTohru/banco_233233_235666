@@ -27,7 +27,7 @@ public class ClienteDAO implements IClienteDAO {
     // NOW IS WORKING, please finish them
     @Override
     public Cliente registrarse(Cliente cliente) {
-        String codigoSQL = "insert into clientes (nombre, apellidoPatemo, apellidoMatemo, FechaNacimiento, IdDireccion) values(?,?,?,?,?)";
+        String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, FechaNacimiento, IdDireccion) values(?,?,?,?,?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
