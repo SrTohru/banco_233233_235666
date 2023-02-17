@@ -42,6 +42,7 @@ public class RegistroFrom extends javax.swing.JFrame {
         String apellidoMaterno = this.apellidoMTF.getText();
       
         Integer idDireccion = 1; //TODO: CAMBIAR POR VALOR DE COMBO
+
         Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, idDireccion);
         return cliente;
     }
@@ -66,7 +67,6 @@ public class RegistroFrom extends javax.swing.JFrame {
             this.mostrarMensajeClienteGuardado(clienteGuardado);
         } catch (Exception e) {
             this.mostrarMensajeErrorClienteGuardado();
-            JOptionPane.showMessageDialog(this, "No fue posible agregar al cliente", "Error", JOptionPane.OK_OPTION);
         }
 
     }

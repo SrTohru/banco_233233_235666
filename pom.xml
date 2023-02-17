@@ -12,13 +12,16 @@
         <exec.mainClass>com.mycompany.banco_233233_235666.Banco_233233_235666</exec.mainClass>
     </properties>
    
-   <!--<dependencies>
+   
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
-            <groupId>com.oracle</groupId>         
-            <artifactId>ojdbc7</artifactId>         
-            <version>12.2.0.1</version>
-        </dependency>       
-    </dependencies>-->
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.32</version>
+        </dependency>
+      
+    </dependencies>
   
     
 </project>

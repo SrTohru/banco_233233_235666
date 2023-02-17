@@ -22,6 +22,8 @@ public class Cliente {
 
     public Cliente() {
     }
+    
+    
 
     public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno, Integer idDireccion) {
         this.nombre = nombre;

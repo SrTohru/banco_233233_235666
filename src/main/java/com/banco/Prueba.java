@@ -22,12 +22,11 @@ public class Prueba {
         IConexionBD manejadorConexiones = new ConexionBD(
                 "jdbc:mysql://localhost/banco",
                 "root",
-                "2210"
+                "joseeduardo"
         );
 
-        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) {};
-        new LoginForm(clientesDAO).setVisible(true);
-        //new RegistroFrom().setVisible(true);
+        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) ;
+      new RegistroFrom(clientesDAO).setVisible(true);
     }
    
 }
