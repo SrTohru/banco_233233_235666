@@ -48,6 +48,7 @@ public class LoginForm extends javax.swing.JFrame {
         passwordLB = new javax.swing.JLabel();
         userLB = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        regresarBT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -88,12 +89,22 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel1.setText("Inicio de sesion");
 
+        regresarBT.setText("Regresar");
+        regresarBT.setToolTipText("");
+        regresarBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarBTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(186, 186, 186)
+                .addGap(16, 16, 16)
+                .addComponent(regresarBT)
+                .addGap(95, 95, 95)
                 .addComponent(jLabel1)
                 .addGap(103, 188, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -117,8 +128,13 @@ public class LoginForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(regresarBT)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTF, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,6 +156,8 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
         // TODO add your handling code here:
+        dispose();
+        new RegistroForm(clientesDAO).setVisible(true);
     }//GEN-LAST:event_registerBTActionPerformed
 
     private void loginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTActionPerformed
@@ -150,6 +168,12 @@ public class LoginForm extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_loginBTActionPerformed
 
+    private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new InicioForm(clientesDAO).setVisible(true);
+    }//GEN-LAST:event_regresarBTActionPerformed
+
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -158,6 +182,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLB;
     private javax.swing.JTextField passwordTF;
     private javax.swing.JButton registerBT;
+    private javax.swing.JButton regresarBT;
     private javax.swing.JLabel userLB;
     private javax.swing.JTextField userTF;
     // End of variables declaration//GEN-END:variables
