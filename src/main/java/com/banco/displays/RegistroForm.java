@@ -6,8 +6,10 @@ package com.banco.displays;
 
 import com.banco.dominio.Cliente;
 import com.banco.dominio.Direccion;
+import com.banco.excepciones.PersistenciaException;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 public class RegistroForm extends javax.swing.JFrame {
@@ -15,7 +17,7 @@ public class RegistroForm extends javax.swing.JFrame {
     private final IClienteDAO clientesDAO;
     private final ICuentaDAO cuentaDAO;
 
-    public RegistroForm(IClienteDAO clientesDAO,  ICuentaDAO cuentaDAO) {
+    public RegistroForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
         this.cuentaDAO = cuentaDAO;
         initComponents();
@@ -361,8 +363,9 @@ public class RegistroForm extends javax.swing.JFrame {
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
         if (isInformationsRequiered()) {
             Direccion direccion = registrarDireccion();
+
             Cliente cliente = registrarCliente(direccion.getId());
-            
+
             generarPregunta(cliente);
         } else {
             JOptionPane.showConfirmDialog(this, "Error, ingrese toda la informacion requerida");

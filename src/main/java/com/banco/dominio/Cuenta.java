@@ -23,13 +23,14 @@ public class Cuenta {
         this.usuario = usuario;
         this.contraseña = contraseña;
     }
-/**
- *
- * @author Usuario
- *//**
- *
- * @author Usuario
- */
+
+    public Cuenta(Integer idCliente, double saldo, String estado, String usuario) {
+        this.idCliente = idCliente;
+        this.saldo = saldo;
+        this.estado = estado;
+        this.usuario = usuario;
+    }
+
     public Cuenta(Integer idCliente, String estado, String fechaApertura, String usuario, String contraseña) {
         this.idCliente = idCliente;
         this.estado = estado;

@@ -4,6 +4,7 @@
  */
 package com.banco.displays;
 
+import com.banco.dominio.Cuenta;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
@@ -25,12 +26,21 @@ public class LoginForm extends javax.swing.JFrame {
     
     public void insertar(){
         if(isInfoRequieres()){
-      //      clientesDAO.registrarse(userTF.getText(), passwordTF.getText());
+            Cuenta cuenta = obtenerInformacionCuenta();
+       cuentaDAO.iniciarSesion(cuenta);
         }else{
             JOptionPane.showMessageDialog(this, "erorr");
         }
             
         
+    }
+    
+    public Cuenta obtenerInformacionCuenta(){
+        String user = this.userTF.getText();
+        String password = this.passwordTF.getText();
+        Cuenta c = new Cuenta(user, password);
+        
+        return c;
     }
     public boolean isInfoRequieres(){
         
@@ -158,7 +168,7 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
-        // TODO add your handling code here:
+        
         dispose();
         new RegistroForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registerBTActionPerformed

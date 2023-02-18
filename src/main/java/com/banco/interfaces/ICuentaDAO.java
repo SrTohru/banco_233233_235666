@@ -12,15 +12,9 @@ import com.banco.dominio.Cuenta;
  * @author Usuario
  */
 public interface ICuentaDAO {
-    /**
- *
- * @author Usuario
- *//**
- *
- * @author Usuario
- */
+
     Cuenta crear(Cuenta cuenta, Cliente cliente);
     Cuenta transferir ();
     Cuenta retirar (String folio, String contrasenia);
-    
+    Cuenta iniciarSesion(Cuenta cuenta);
 }
