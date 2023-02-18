@@ -24,7 +24,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     public boolean isInformationsRequiered() {
         if (usuarioTF.getText().equalsIgnoreCase("")
-                || jPasswordField1.getText().equalsIgnoreCase("")) {
+                || passwordTF.getText().equalsIgnoreCase("")) {
             return false;
         }
         return true;
@@ -32,7 +32,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     private Cuenta extraerDatosFormularioUsuario() {
         String usuario = this.usuarioTF.getText();
-        String contraseña = this.jPasswordField1.getText();
+        String contraseña = this.passwordTF.getText();
         Cuenta cuenta = new Cuenta(usuario, contraseña);
         return cuenta;
     }
@@ -72,7 +72,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
         aceptarBT = new javax.swing.JButton();
         cancelarBT = new javax.swing.JButton();
         regresarBT = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordTF = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,9 +109,9 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        passwordTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passwordTFActionPerformed(evt);
             }
         });
 
@@ -140,7 +140,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(usuarioTF)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))))
+                            .addComponent(passwordTF, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -160,7 +160,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptarBT)
@@ -183,6 +183,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
  */
     private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_regresarBTActionPerformed
 
     private void aceptarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBTActionPerformed
@@ -191,11 +192,12 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     private void cancelarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBTActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_cancelarBTActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passwordTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passwordTFActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarBT;
@@ -203,7 +205,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField passwordTF;
     private javax.swing.JButton regresarBT;
     private javax.swing.JTextField usuarioTF;
     // End of variables declaration//GEN-END:variables
