@@ -171,7 +171,16 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ *
+ * @author Usuario
+ *//**
+ *
+ * @author Usuario
+ *//**
+ *
+ * @author Usuario
+ */
     private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_regresarBTActionPerformed

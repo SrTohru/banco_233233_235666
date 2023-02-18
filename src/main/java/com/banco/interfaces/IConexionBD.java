@@ -12,7 +12,13 @@ import java.sql.SQLException;
  * @author Usuario
  */
 public interface IConexionBD {
-    
+    /**
+ *
+ * @author Usuario
+ *//**
+ *
+ * @author Usuario
+ */
     Connection crearConexion() throws SQLException;       
 
 }
