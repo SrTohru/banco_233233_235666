@@ -12,33 +12,40 @@ import java.util.Objects;
  */
 public class Cuenta {
     
-    private Integer id;
+    private Integer id, idCliente;
     private double saldo;
-    private String estado;
-    private String fechaApertura;
+    private String estado, fechaApertura, usuario, contraseña;
 
     public Cuenta() {
     }
 
-    public Cuenta(double saldo, String estado, String fechaApertura) {
-        this.saldo = saldo;
-        this.estado = estado;
-        this.fechaApertura = fechaApertura;
+    public Cuenta(String usuario, String contraseña) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
     }
 
-    public Cuenta(Integer id, double saldo, String estado, String fechaApertura) {
-        this.id = id;
-        this.saldo = saldo;
+    public Cuenta(Integer idCliente, String estado, String fechaApertura, String usuario, String contraseña) {
+        this.idCliente = idCliente;
         this.estado = estado;
         this.fechaApertura = fechaApertura;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
     }
-    
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public double getSaldo() {
@@ -65,6 +72,23 @@ public class Cuenta {
         this.fechaApertura = fechaApertura;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+ 
     @Override
     public int hashCode() {
         int hash = 3;

@@ -9,8 +9,10 @@ import com.banco.displays.LoginForm;
 import com.banco.displays.RegistroForm;
 import com.banco.implementaciones.ClienteDAO;
 import com.banco.implementaciones.ConexionBD;
+import com.banco.implementaciones.CuentaDAO;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.IConexionBD;
+import com.banco.interfaces.ICuentaDAO;
 
 
 /**
@@ -23,11 +25,12 @@ public class Prueba {
         IConexionBD manejadorConexiones = new ConexionBD(
                 "jdbc:mysql://localhost/banco",
                 "root",
-                "2210"
+                "joseeduardo"
         );
-//finish this
-        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones) ;
-      new InicioForm(clientesDAO).setVisible(true);
+
+        IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones);
+        ICuentaDAO cuentaDAO = new CuentaDAO(manejadorConexiones);
+      new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
     }
    
 }

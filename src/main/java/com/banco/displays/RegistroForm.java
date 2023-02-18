@@ -6,22 +6,18 @@ package com.banco.displays;
 
 import com.banco.dominio.Cliente;
 import com.banco.dominio.Direccion;
-import com.banco.implementaciones.ClienteDAO;
 import com.banco.interfaces.IClienteDAO;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author PC
- */
 public class RegistroForm extends javax.swing.JFrame {
 
     private final IClienteDAO clientesDAO;
+    private final ICuentaDAO cuentaDAO;
 
-    public RegistroForm(IClienteDAO clientesDAO) {
+    public RegistroForm(IClienteDAO clientesDAO,  ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
+        this.cuentaDAO = cuentaDAO;
         initComponents();
     }
 
@@ -50,7 +46,7 @@ public class RegistroForm extends javax.swing.JFrame {
         String calle = this.calleTF.getText();
         String colonia = this.coloniaTF.getText();
         String numero = this.numeroTF.getText();
-        
+
         Direccion direccion = new Direccion(calle, colonia, numero);
         return direccion;
     }
@@ -61,7 +57,7 @@ public class RegistroForm extends javax.swing.JFrame {
     }
 
     private void mostrarMensajeDireccionGuardada(Direccion direccion) {
-        JOptionPane.showMessageDialog(this, "se agregó la direccion: " + direccion.getId(),
+        JOptionPane.showMessageDialog(this, "se agregó la dirección: " + direccion.getId(),
                 "Información ", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -71,7 +67,7 @@ public class RegistroForm extends javax.swing.JFrame {
     }
 
     private void mostrarMensajeErrorDireccionGuardada() {
-        JOptionPane.showMessageDialog(this, "No fue posible agregar la direccion", "Error", JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(this, "No fue posible agregar la dirección", "Error", JOptionPane.OK_OPTION);
 
     }
 
@@ -84,21 +80,41 @@ public class RegistroForm extends javax.swing.JFrame {
             return direccionGuardada;
         } catch (Exception e) {
             this.mostrarMensajeErrorDireccionGuardada();
+            return null;
         }
-        return null;
     }
 
-    private void registrarCliente(int idDireccion) {
+    private Cliente registrarCliente(int idDireccion) {
 
         try {
             Cliente cliente = this.extraerDatosFormularioUsuario();
             cliente.setIdDireccion(idDireccion);
             Cliente clienteGuardado = this.clientesDAO.registrarse(cliente);
             this.mostrarMensajeClienteGuardado(clienteGuardado);
+            return clienteGuardado;
         } catch (Exception e) {
             this.mostrarMensajeErrorClienteGuardado();
+            return null;
         }
+    }
 
+    public int preguntaCuenta() {
+        String[] options = {"Si", "No"};
+        return JOptionPane.showOptionDialog(null, "¿Desea crear una cuenta con este usuario?", "Crear cuenta", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    }
+
+    public void generarPregunta(Cliente cliente) {
+
+        switch (preguntaCuenta()) {
+            case 0:
+                new RegistrarCuentaForm(cliente, cuentaDAO).setVisible(true);
+                break;
+            case 1:
+                dispose();
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Esa no fue una respuesta valida.", "Error", JOptionPane.OK_OPTION);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -344,8 +360,10 @@ public class RegistroForm extends javax.swing.JFrame {
 
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
         if (isInformationsRequiered()) {
+            Direccion direccion = registrarDireccion();
+            Cliente cliente = registrarCliente(direccion.getId());
             
-            registrarCliente(registrarDireccion().getId());
+            generarPregunta(cliente);
         } else {
             JOptionPane.showConfirmDialog(this, "Error, ingrese toda la informacion requerida");
         }
@@ -362,11 +380,11 @@ public class RegistroForm extends javax.swing.JFrame {
     private void regresoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresoBTActionPerformed
         // TODO add your handling code here:
         dispose();
-        new InicioForm(clientesDAO).setVisible(true);
+        new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_regresoBTActionPerformed
 
     private void apellidoMaternoTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoMaternoTFActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_apellidoMaternoTFActionPerformed
 
     private void fechaNacimientoTFComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_fechaNacimientoTFComponentAdded
@@ -378,7 +396,6 @@ public class RegistroForm extends javax.swing.JFrame {
     }//GEN-LAST:event_fechaNacimientoTFComponentRemoved
 
     private void fechaNacimientoTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaNacimientoTFKeyReleased
-
         if (!(evt.getKeyCode() == 8)) {
             if (fechaNacimientoTF.getText().length() == 4) {
                 fechaNacimientoTF.setText(fechaNacimientoTF.getText() + "-");
@@ -386,14 +403,11 @@ public class RegistroForm extends javax.swing.JFrame {
                 fechaNacimientoTF.setText(fechaNacimientoTF.getText() + "-");
             }
         }
-
-
     }//GEN-LAST:event_fechaNacimientoTFKeyReleased
 
     private void fechaNacimientoTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaNacimientoTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechaNacimientoTFActionPerformed
 
+    }//GEN-LAST:event_fechaNacimientoTFActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidoMaternoTF;

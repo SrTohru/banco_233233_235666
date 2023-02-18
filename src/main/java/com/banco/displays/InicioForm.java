@@ -5,6 +5,7 @@
 package com.banco.displays;
 
 import com.banco.interfaces.IClienteDAO;
+import com.banco.interfaces.ICuentaDAO;
 
 /**
  *
@@ -12,20 +13,15 @@ import com.banco.interfaces.IClienteDAO;
  */
 public class InicioForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InicioForm
-     */    private final IClienteDAO clientesDAO;
-//TEST
- //TEST//TESTD
-     //TESTASDA
- //TEST//ASDASD//TESTASDASAS
-     
-    public InicioForm(IClienteDAO clientesDAO) {
+    private final IClienteDAO clientesDAO;
+    private final ICuentaDAO cuentaDAO;
+
+    public InicioForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
-    
+        this.cuentaDAO = cuentaDAO;
+
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -125,11 +121,11 @@ public class InicioForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicioSesionBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioSesionBTActionPerformed
-        new LoginForm(clientesDAO).setVisible(true);
+        new LoginForm(clientesDAO,cuentaDAO).setVisible(true);
     }//GEN-LAST:event_inicioSesionBTActionPerformed
 
     private void registroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBTActionPerformed
-         new RegistroForm(clientesDAO).setVisible(true);
+        new RegistroForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registroBTActionPerformed
 
     private void depositoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositoBTActionPerformed

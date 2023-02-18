@@ -4,6 +4,7 @@
  */
 package com.banco.interfaces;
 
+import com.banco.dominio.Cliente;
 import com.banco.dominio.Cuenta;
 
 /**
@@ -12,6 +13,7 @@ import com.banco.dominio.Cuenta;
  */
 public interface ICuentaDAO {
     
+    Cuenta crear(Cuenta cuenta, Cliente cliente);
     Cuenta transferir ();
     Cuenta retirar (String folio, String contrasenia);
     

@@ -5,6 +5,7 @@
 package com.banco.displays;
 
 import com.banco.interfaces.IClienteDAO;
+import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,8 +15,10 @@ import javax.swing.JOptionPane;
 public class LoginForm extends javax.swing.JFrame {
     
     private final IClienteDAO clientesDAO;
-    public LoginForm(IClienteDAO clientesDAO) {
+    private final ICuentaDAO cuentaDAO;
+    public LoginForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
+        this.cuentaDAO = cuentaDAO;
         initComponents();
     }
 //finish this
@@ -157,7 +160,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
         // TODO add your handling code here:
         dispose();
-        new RegistroForm(clientesDAO).setVisible(true);
+        new RegistroForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registerBTActionPerformed
 
     private void loginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTActionPerformed
@@ -171,7 +174,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
         // TODO add your handling code here:
         dispose();
-        new InicioForm(clientesDAO).setVisible(true);
+        new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_regresarBTActionPerformed
 
  
