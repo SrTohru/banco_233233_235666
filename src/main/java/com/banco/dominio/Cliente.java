@@ -29,6 +29,14 @@ public class Cliente {
         this.apelldioMaterno = apelldioMaterno;
         this.idDireccion = idDireccion;
     }
+    
+       public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno,  String fechaNacimiento,Integer idDireccion) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apelldioMaterno = apelldioMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.idDireccion = idDireccion;
+    }
 
     public Cliente(Integer id, String nombre, String apellidoPaterno, String apelldioMaterno, Integer idDireccion) {
         this.id = id;

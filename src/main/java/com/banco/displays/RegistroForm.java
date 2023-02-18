@@ -42,8 +42,7 @@ public class RegistroForm extends javax.swing.JFrame {
         String apellidoPaterno = this.apellidoPaternoTF.getText();
         String apellidoMaterno = this.apellidoMaternoTF.getText();
         String fechaNacimiento = this.fechaNacimientoTF.getText();
-// FINISH THIS
-        Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, 0);
+        Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 0);
         return cliente;
     }
 
@@ -51,8 +50,7 @@ public class RegistroForm extends javax.swing.JFrame {
         String calle = this.calleTF.getText();
         String colonia = this.coloniaTF.getText();
         String numero = this.numeroTF.getText();
-
-// FINISH THIS
+        
         Direccion direccion = new Direccion(calle, colonia, numero);
         return direccion;
     }
@@ -67,34 +65,34 @@ public class RegistroForm extends javax.swing.JFrame {
                 "Información ", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void test() {
-
-    }
-
     private void mostrarMensajeErrorClienteGuardado() {
         JOptionPane.showMessageDialog(this, "No fue posible agregar al cliente", "Error", JOptionPane.OK_OPTION);
 
     }
-    
-       private void mostrarMensajeErrorDireccionGuardada() {
+
+    private void mostrarMensajeErrorDireccionGuardada() {
         JOptionPane.showMessageDialog(this, "No fue posible agregar la direccion", "Error", JOptionPane.OK_OPTION);
 
     }
 
-
-    private void registrarCliente() {
+    private Direccion registrarDireccion() {
         try {
             Direccion direccion = this.extraerDatosFormularioDireccion();
             Direccion direccionGuardada = this.clientesDAO.ingresarDireccion(direccion);
-            
+
             this.mostrarMensajeDireccionGuardada(direccionGuardada);
+            return direccionGuardada;
         } catch (Exception e) {
             this.mostrarMensajeErrorDireccionGuardada();
         }
+        return null;
+    }
+
+    private void registrarCliente(int idDireccion) {
 
         try {
             Cliente cliente = this.extraerDatosFormularioUsuario();
-            cliente.setIdDireccion(1);
+            cliente.setIdDireccion(idDireccion);
             Cliente clienteGuardado = this.clientesDAO.registrarse(cliente);
             this.mostrarMensajeClienteGuardado(clienteGuardado);
         } catch (Exception e) {
@@ -175,6 +173,11 @@ public class RegistroForm extends javax.swing.JFrame {
             }
             public void componentRemoved(java.awt.event.ContainerEvent evt) {
                 fechaNacimientoTFComponentRemoved(evt);
+            }
+        });
+        fechaNacimientoTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaNacimientoTFActionPerformed(evt);
             }
         });
         fechaNacimientoTF.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -275,10 +278,10 @@ public class RegistroForm extends javax.swing.JFrame {
                                 .addComponent(numeroTF, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
+                .addGap(278, 278, 278)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(278, 278, 278)
                         .addComponent(jLabel5)
                         .addGap(58, 58, 58)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -341,8 +344,8 @@ public class RegistroForm extends javax.swing.JFrame {
 
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
         if (isInformationsRequiered()) {
-     
-            registrarCliente();
+            
+            registrarCliente(registrarDireccion().getId());
         } else {
             JOptionPane.showConfirmDialog(this, "Error, ingrese toda la informacion requerida");
         }
@@ -386,6 +389,10 @@ public class RegistroForm extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_fechaNacimientoTFKeyReleased
+
+    private void fechaNacimientoTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaNacimientoTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaNacimientoTFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
