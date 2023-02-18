@@ -8,8 +8,12 @@ package com.banco.dominio;
 public class Direccion {
     Integer id;
     String calle, colonia, numExterior;
-//TEST
- //TEASDASDASD
+    //TEST
+    //TEASDASDASD
+
+    public Direccion() {
+    }
+    
     public Direccion(String calle, String colonia, String numExterior) {
         this.calle = calle;
         this.colonia = colonia;
