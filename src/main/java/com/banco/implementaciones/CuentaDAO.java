@@ -29,30 +29,28 @@ public class CuentaDAO implements ICuentaDAO {
     @Override
     public Cuenta crear(Cuenta cuenta, Cliente cliente) {
 
-        String codigoSQL = "INSERT INTO cuentas (usuario, contraseña, Estado, FechaApertura, Saldo, IdCliente) values(?,?,?,?,?,?)";
+        String codigoSQL = "INSERT INTO cuentas (alias, estado, fechaApertura, saldo, idCliente) values(?,?,?,?,?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
 
             LocalDate fechaActual = LocalDate.now();
-           // String contraseñaEncriptada = encriptarContraseña(cuenta.getContraseña());
-           // comando.setString(1, cuenta.getUsuario());
-            
-          //  JOptionPane.showConfirmDialog(null, "Contraseña encriptada: " + contraseñaEncriptada + ", desencriptada: " + cuenta.getContraseña());
-          //  comando.setString(2, cuenta.getContraseña());
-            comando.setString(3, "activa");
-            comando.setString(4, fechaActual.toString());
-            comando.setDouble(5, 0.0);
-            comando.setInt(6, cliente.getId());
+           
+            comando.setString(1, cuenta.getAlias());
+            comando.setString(2, "activa");
+            comando.setString(3, fechaActual.toString());
+            comando.setDouble(4, 0.0);
+            comando.setInt(5, cliente.getId());
 
             comando.executeUpdate();
             ResultSet generatedKeys = comando.getGeneratedKeys();
 
             if (generatedKeys.next()) {
                 Integer llavePrimaria = generatedKeys.getInt(1);
-            //    Cuenta c = new Cuenta(cliente.getId(), "Activa", fechaActual.toString(), cuenta.getUsuario(), cuenta.getContraseña());
-            //    c.setId(llavePrimaria);
-             //   return c;
+                //public Cuenta(Integer id, Integer idCliente, double saldo, String estado, String fechaApertura, String alias) {
+                Cuenta c = new Cuenta(llavePrimaria, cliente.getId(), 0.0, "activa", fechaActual.toString(), cuenta.getAlias());
+                c.setId(llavePrimaria);
+                return c;
             }
 
         } catch (SQLException e) {

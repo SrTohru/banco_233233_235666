@@ -4,8 +4,11 @@
  */
 package com.banco.displays;
 
+import com.banco.dominio.Cliente;
+import com.banco.dominio.Cuenta;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,11 +19,28 @@ public class InicioForm extends javax.swing.JFrame {
     private final IClienteDAO clientesDAO;
     private final ICuentaDAO cuentaDAO;
 
+    private Cliente cliente;
+    private Cuenta cuenta;
+
     public InicioForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
         this.cuentaDAO = cuentaDAO;
 
         initComponents();
+    }
+
+    public InicioForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO, Cliente cliente, Cuenta cuenta) {
+        this.clientesDAO = clientesDAO;
+        this.cuentaDAO = cuentaDAO;
+        this.cliente = cliente;
+        this.cuenta = cuenta;
+
+        initComponents();
+    }
+
+    private void mostrarErrorDeposito() {
+        JOptionPane.showMessageDialog(this, "No se puede realizar un deposito sin haber iniciado sesion",
+                "Información ", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")
@@ -126,15 +146,25 @@ public class InicioForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicioSesionBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioSesionBTActionPerformed
-        new LoginForm(clientesDAO,cuentaDAO).setVisible(true);
+        dispose();
+        new LoginForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_inicioSesionBTActionPerformed
 
     private void registroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBTActionPerformed
+        dispose();
         new RegistroClienteForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registroBTActionPerformed
 
     private void depositoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositoBTActionPerformed
-        new DepositoForm(clientesDAO).setVisible(true);
+
+        if (cliente != null && cuenta != null) {
+            new DepositoForm(clientesDAO, cuentaDAO, cliente, cuenta).setVisible(true);
+            dispose();
+        } else {
+            mostrarErrorDeposito();
+        }
+
+
     }//GEN-LAST:event_depositoBTActionPerformed
 
     private void actualizaClienteBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizaClienteBTActionPerformed

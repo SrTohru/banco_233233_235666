@@ -11,15 +11,18 @@ import java.util.Objects;
  * @author Usuario
  */
 public class Cuenta {
-    
+
     private Integer id, idCliente;
     private double saldo;
-    private String estado, fechaApertura;
+    private String estado, fechaApertura, alias;
 
     public Cuenta() {
     }
 
-
+    public Cuenta(Integer idCliente, String alias) {
+        this.idCliente = idCliente;
+        this.alias = alias;
+    }
 
     public Cuenta(Integer idCliente, double saldo, String estado) {
         this.idCliente = idCliente;
@@ -31,6 +34,23 @@ public class Cuenta {
         this.idCliente = idCliente;
         this.estado = estado;
         this.fechaApertura = fechaApertura;
+    }
+
+    public Cuenta(Integer id, Integer idCliente, double saldo, String estado, String fechaApertura, String alias) {
+        this.id = id;
+        this.idCliente = idCliente;
+        this.saldo = saldo;
+        this.estado = estado;
+        this.fechaApertura = fechaApertura;
+        this.alias = alias;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public Integer getId() {
@@ -72,14 +92,14 @@ public class Cuenta {
     public void setFechaApertura(String fechaApertura) {
         this.fechaApertura = fechaApertura;
     }
- 
+
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 79 * hash + Objects.hashCode(this.id);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -94,5 +114,5 @@ public class Cuenta {
         final Cuenta other = (Cuenta) obj;
         return Objects.equals(this.id, other.id);
     }
-    
+
 }

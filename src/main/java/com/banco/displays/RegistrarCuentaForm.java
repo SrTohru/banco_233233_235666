@@ -21,18 +21,13 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     }
 
     public boolean isInformationsRequiered() {
-        if (usuarioTF.getText().equalsIgnoreCase("")
-                || passwordTF.getText().equalsIgnoreCase("")) {
-            return false;
-        }
-        return true;
+        return (aliasTF.getText().equalsIgnoreCase(""));
     }
 
     private Cuenta extraerDatosFormularioUsuario() {
-        String usuario = this.usuarioTF.getText();
-        String contraseña = this.passwordTF.getText();
-        //Cuenta cuenta = new Cuenta(usuario, contraseña);
-        return null;
+        String alias = this.aliasTF.getText();
+        Cuenta cuenta = new Cuenta(cliente.getId(), alias);
+        return cuenta;
     }
 
     private void mostrarMensajeCuentaCreada(Cuenta cuenta) {
@@ -49,9 +44,9 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
         try {
             Cuenta cuenta = this.extraerDatosFormularioUsuario();
 
-            Cuenta clienteGuardado = this.cuentaDAO.crear(cuenta, cliente);
-            this.mostrarMensajeCuentaCreada(clienteGuardado);
-            return clienteGuardado;
+            Cuenta cuentaGuardada = this.cuentaDAO.crear(cuenta, cliente);
+            this.mostrarMensajeCuentaCreada(cuentaGuardada);
+            return cuentaGuardada;
         } catch (Exception e) {
             this.mostrarMensajeErrorCrearCuenta();
             return null;
@@ -63,24 +58,18 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        usuarioTF = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        aliasTF = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         aceptarBT = new javax.swing.JButton();
         cancelarBT = new javax.swing.JButton();
-        regresarBT = new javax.swing.JButton();
-        passwordTF = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel1.setText("Registra una Cuenta");
 
-        jLabel2.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        jLabel2.setText("Constraseña:");
-
         jLabel3.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        jLabel3.setText("Usuario:");
+        jLabel3.setText("Alias:");
 
         aceptarBT.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         aceptarBT.setText("Aceptar");
@@ -98,84 +87,54 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
             }
         });
 
-        regresarBT.setFont(new java.awt.Font("DialogInput", 1, 12)); // NOI18N
-        regresarBT.setText("Regresar");
-        regresarBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarBTActionPerformed(evt);
-            }
-        });
-
-        passwordTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTFActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(aceptarBT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addGap(75, 75, 75)
                 .addComponent(cancelarBT)
-                .addGap(111, 111, 111))
+                .addGap(157, 157, 157))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(regresarBT)
-                        .addGap(78, 78, 78)
+                        .addGap(182, 182, 182)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(usuarioTF)
-                            .addComponent(passwordTF, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(128, 128, 128)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(aliasTF, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(regresarBT)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(usuarioTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aliasTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptarBT)
-                    .addComponent(cancelarBT))
-                .addGap(54, 54, 54))
+                    .addComponent(cancelarBT)
+                    .addComponent(aceptarBT))
+                .addGap(151, 151, 151))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_regresarBTActionPerformed
-
     private void aceptarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBTActionPerformed
-        registrarCuenta();
+        Cuenta c = registrarCuenta();
+        
+        if(c != null){
+            dispose();
+        }
     }//GEN-LAST:event_aceptarBTActionPerformed
 
     private void cancelarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBTActionPerformed
@@ -183,18 +142,11 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelarBTActionPerformed
 
-    private void passwordTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTFActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarBT;
+    private javax.swing.JTextField aliasTF;
     private javax.swing.JButton cancelarBT;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField passwordTF;
-    private javax.swing.JButton regresarBT;
-    private javax.swing.JTextField usuarioTF;
     // End of variables declaration//GEN-END:variables
 }
