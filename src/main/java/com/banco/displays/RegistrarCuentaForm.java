@@ -42,7 +42,6 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     private void mostrarMensajeErrorCrearCuenta() {
         JOptionPane.showMessageDialog(this, "No fue posible agregar la cuenta", "Error", JOptionPane.OK_OPTION);
-
     }
 
     private Cuenta registrarCuenta() {
@@ -169,16 +168,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-/**
- *
- * @author Usuario
- *//**
- *
- * @author Usuario
- *//**
- *
- * @author Usuario
- */
+
     private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
         // TODO add your handling code here:
         dispose();

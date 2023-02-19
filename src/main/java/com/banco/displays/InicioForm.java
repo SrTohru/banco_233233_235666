@@ -57,6 +57,11 @@ public class InicioForm extends javax.swing.JFrame {
 
         historialBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         historialBT.setText("Historial");
+        historialBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historialBTActionPerformed(evt);
+            }
+        });
 
         depositoBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         depositoBT.setText("Deposito");
@@ -125,7 +130,7 @@ public class InicioForm extends javax.swing.JFrame {
     }//GEN-LAST:event_inicioSesionBTActionPerformed
 
     private void registroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBTActionPerformed
-        new RegistroForm(clientesDAO, cuentaDAO).setVisible(true);
+        new RegistroClienteForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registroBTActionPerformed
 
     private void depositoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositoBTActionPerformed
@@ -135,6 +140,12 @@ public class InicioForm extends javax.swing.JFrame {
     private void actualizaClienteBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizaClienteBTActionPerformed
         new ActualizarClienteForm(clientesDAO).setVisible(true);
     }//GEN-LAST:event_actualizaClienteBTActionPerformed
+
+    private void historialBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialBTActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new HistorialForm(clientesDAO).setVisible(true);
+    }//GEN-LAST:event_historialBTActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizaClienteBT;

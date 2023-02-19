@@ -170,7 +170,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
         
         dispose();
-        new RegistroForm(clientesDAO, cuentaDAO).setVisible(true);
+       //new RegistroClienteForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registerBTActionPerformed
 
     private void loginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTActionPerformed

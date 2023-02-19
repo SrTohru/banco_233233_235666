@@ -4,16 +4,21 @@
  */
 package com.banco.displays;
 
+import com.banco.interfaces.IClienteDAO;
+
 /**
  *
  * @author Usuario
  */
 public class PerfilForm extends javax.swing.JFrame {
 
+    private final IClienteDAO clientesDAO;
+
     /**
      * Creates new form PerfilForm
      */
-    public PerfilForm() {
+    public PerfilForm(IClienteDAO clientesDAO) {
+        this.clientesDAO = clientesDAO;
         initComponents();
     }
 
@@ -28,9 +33,10 @@ public class PerfilForm extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        registrarCuentaDAO = new javax.swing.JButton();
+        hacerDepositoBT = new javax.swing.JButton();
+        actualizarClienteBT = new javax.swing.JButton();
+        historialBT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,36 +46,60 @@ public class PerfilForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         jLabel2.setText("Saldo");
 
-        jButton1.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
-        jButton1.setText("Registrar Cuenta");
+        registrarCuentaDAO.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
+        registrarCuentaDAO.setText("Registrar Cuenta");
+        registrarCuentaDAO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarCuentaDAOActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
-        jButton2.setText("Hacer Deposito");
+        hacerDepositoBT.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
+        hacerDepositoBT.setText("Hacer Deposito");
+        hacerDepositoBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hacerDepositoBTActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
-        jButton3.setText("Actualizar Información");
+        actualizarClienteBT.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
+        actualizarClienteBT.setText("Actualizar Información");
+        actualizarClienteBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarClienteBTActionPerformed(evt);
+            }
+        });
+
+        historialBT.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
+        historialBT.setText("Tu Historial");
+        historialBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historialBTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(254, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(39, 39, 39)
-                        .addComponent(jButton1)
-                        .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel2)))
-                        .addGap(235, 235, 235))))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel2)))
+                .addGap(235, 235, 235))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(hacerDepositoBT, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(historialBT, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registrarCuentaDAO, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(actualizarClienteBT))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,22 +108,50 @@ public class PerfilForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(actualizarClienteBT)
+                    .addComponent(historialBT))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registrarCuentaDAO)
+                    .addComponent(hacerDepositoBT))
                 .addGap(23, 23, 23))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void historialBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialBTActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new HistorialForm(clientesDAO).setVisible(true);
+    }//GEN-LAST:event_historialBTActionPerformed
+
+    private void hacerDepositoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hacerDepositoBTActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new DepositoForm(clientesDAO).setVisible(true);
+    }//GEN-LAST:event_hacerDepositoBTActionPerformed
+
+    private void actualizarClienteBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarClienteBTActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new ActualizarClienteForm(clientesDAO).setVisible(true);
+    }//GEN-LAST:event_actualizarClienteBTActionPerformed
+
+    private void registrarCuentaDAOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarCuentaDAOActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_registrarCuentaDAOActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton actualizarClienteBT;
+    private javax.swing.JButton hacerDepositoBT;
+    private javax.swing.JButton historialBT;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton registrarCuentaDAO;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,7 @@ package com.banco;
 
 import com.banco.displays.InicioForm;
 import com.banco.displays.LoginForm;
-import com.banco.displays.RegistroForm;
+import com.banco.displays.RegistroClienteForm;
 import com.banco.implementaciones.ClienteDAO;
 import com.banco.implementaciones.ConexionBD;
 import com.banco.implementaciones.CuentaDAO;
@@ -30,7 +30,7 @@ public class Prueba {
 
         IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones);
         ICuentaDAO cuentaDAO = new CuentaDAO(manejadorConexiones);
-      new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
+        new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
     }
    
 }

@@ -10,12 +10,12 @@ import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
 
-public class RegistroForm extends javax.swing.JFrame {
+public class RegistroClienteForm extends javax.swing.JFrame {
 
     private final IClienteDAO clientesDAO;
     private final ICuentaDAO cuentaDAO;
 
-    public RegistroForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
+    public RegistroClienteForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
         this.cuentaDAO = cuentaDAO;
         initComponents();

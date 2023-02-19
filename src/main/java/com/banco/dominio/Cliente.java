@@ -15,7 +15,7 @@ public class Cliente {
     private Integer id;
     private String nombre;
     private String apellidoPaterno;
-    private String apelldioMaterno;
+    private String apellidoMaterno;
     private String fechaNacimiento;
     private Integer edad;
     private Integer idDireccion;
@@ -24,17 +24,17 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno, Integer idDireccion) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, Integer idDireccion) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.apelldioMaterno = apelldioMaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.idDireccion = idDireccion;
     }
 
     public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno, String fechaNacimiento, Integer idDireccion, String usuario, String nip) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.apelldioMaterno = apelldioMaterno;
+        this.apellidoMaterno = apelldioMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.idDireccion = idDireccion;
         this.usuario = usuario;
@@ -57,36 +57,37 @@ public class Cliente {
         this.nip = nip;
     }
     
-       public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno,  String fechaNacimiento,Integer idDireccion) {
+       public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno,  String fechaNacimiento, Integer idDireccion) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.apelldioMaterno = apelldioMaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nip = nip;
+        this.idDireccion = idDireccion;
+    }
+
+    public Cliente(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, Integer idDireccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.idDireccion = idDireccion;
+    }
+
+    public Cliente(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, Integer idDireccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.idDireccion = idDireccion;
     }
 
-    public Cliente(Integer id, String nombre, String apellidoPaterno, String apelldioMaterno, Integer idDireccion) {
+    public Cliente(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, Integer edad, Integer idDireccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.apelldioMaterno = apelldioMaterno;
-        this.idDireccion = idDireccion;
-    }
-
-    public Cliente(Integer id, String nombre, String apellidoPaterno, String apelldioMaterno, String fechaNacimiento, Integer idDireccion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apelldioMaterno = apelldioMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.idDireccion = idDireccion;
-    }
-
-    public Cliente(Integer id, String nombre, String apellidoPaterno, String apelldioMaterno, String fechaNacimiento, Integer edad, Integer idDireccion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apelldioMaterno = apelldioMaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.edad = edad;
         this.idDireccion = idDireccion;
@@ -116,14 +117,15 @@ public class Cliente {
         this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getApelldioMaterno() {
-        return apelldioMaterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setApelldioMaterno(String apelldioMaterno) {
-        this.apelldioMaterno = apelldioMaterno;
+    public void setApelldioMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
+    
     public String getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -150,7 +152,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apelldioMaterno=" + apelldioMaterno + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", idDireccion=" + idDireccion + '}';
+        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apelldioMaterno=" + apellidoMaterno + ", fechaNacimiento=" + fechaNacimiento + ", edad=" + edad + ", idDireccion=" + idDireccion + '}';
     }
 
     @Override
@@ -178,7 +180,7 @@ public class Cliente {
         if (!Objects.equals(this.apellidoPaterno, other.apellidoPaterno)) {
             return false;
         }
-        if (!Objects.equals(this.apelldioMaterno, other.apelldioMaterno)) {
+        if (!Objects.equals(this.apellidoMaterno, other.apellidoMaterno)) {
             return false;
         }
         if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {

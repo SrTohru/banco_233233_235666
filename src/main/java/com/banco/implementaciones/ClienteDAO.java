@@ -34,7 +34,7 @@ public class ClienteDAO implements IClienteDAO {
 
             comando.setString(1, cliente.getNombre());
             comando.setString(2, cliente.getApellidoPaterno());
-            comando.setString(3, cliente.getApelldioMaterno());
+            comando.setString(3, cliente.getApellidoMaterno());
             comando.setString(4, encriptarContraseña(cliente.getNip()));
             comando.setString(5, cliente.getUsuario());
             comando.setString(6, cliente.getFechaNacimiento());
