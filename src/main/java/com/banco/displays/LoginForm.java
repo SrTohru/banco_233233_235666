@@ -38,9 +38,9 @@ public class LoginForm extends javax.swing.JFrame {
     public Cuenta obtenerInformacionCuenta(){
         String user = this.userTF.getText();
         String password = this.passwordTF.getText();
-        Cuenta c = new Cuenta(user, password);
+       // Cuenta c = new Cuenta(user, password);
         
-        return c;
+        return null;
     }
     public boolean isInfoRequieres(){
         

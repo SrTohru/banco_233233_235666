@@ -6,10 +6,8 @@ package com.banco.displays;
 
 import com.banco.dominio.Cliente;
 import com.banco.dominio.Direccion;
-import com.banco.excepciones.PersistenciaException;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 public class RegistroForm extends javax.swing.JFrame {
@@ -23,13 +21,15 @@ public class RegistroForm extends javax.swing.JFrame {
         initComponents();
     }
 
-    public boolean isInformationsRequiered() {
+    public boolean isInformationRequiered() {
         if (nameTF.getText().equalsIgnoreCase("")
                 || apellidoPaternoTF.getText().equalsIgnoreCase("")
                 || apellidoMaternoTF.getText().equalsIgnoreCase("")
                 || calleTF.getText().equalsIgnoreCase("")
                 || numeroTF.getText().equalsIgnoreCase("")
-                || coloniaTF.getText().equalsIgnoreCase("")) {
+                || coloniaTF.getText().equalsIgnoreCase("")
+                || nipTF.getText().equalsIgnoreCase("")
+                || usuarioTF.getText().equalsIgnoreCase("")) {
             return false;
         }
         return true;
@@ -40,7 +40,9 @@ public class RegistroForm extends javax.swing.JFrame {
         String apellidoPaterno = this.apellidoPaternoTF.getText();
         String apellidoMaterno = this.apellidoMaternoTF.getText();
         String fechaNacimiento = this.fechaNacimientoTF.getText();
-        Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 0);
+        String usuario = this.usuarioTF.getText();
+        String nip = this.nipTF.getText();
+        Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 0, usuario, nip);
         return cliente;
     }
 
@@ -143,6 +145,11 @@ public class RegistroForm extends javax.swing.JFrame {
         regresoBT = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        nipTF = new javax.swing.JPasswordField();
+        usuarioTF = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 255));
@@ -205,7 +212,7 @@ public class RegistroForm extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
-        jLabel6.setText("Informacion personal");
+        jLabel6.setText("Informacion de cuenta");
 
         jLabel7.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel7.setText("Calle");
@@ -252,6 +259,27 @@ public class RegistroForm extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel5.setText("YYYY-MM-DD");
 
+        jLabel11.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        jLabel11.setText("Informacion personal");
+
+        nipTF.setBackground(new java.awt.Color(255, 255, 255));
+        nipTF.setForeground(new java.awt.Color(0, 0, 0));
+        nipTF.setText("jPasswordField1");
+
+        usuarioTF.setBackground(new java.awt.Color(255, 255, 255));
+        usuarioTF.setForeground(new java.awt.Color(0, 0, 0));
+        usuarioTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioTFActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
+        jLabel13.setText("Usuario");
+
+        jLabel14.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
+        jLabel14.setText("NIP");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,9 +299,7 @@ public class RegistroForm extends javax.swing.JFrame {
                             .addComponent(apellidoMaternoTF)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(regresoBT, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(regresoBT))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
@@ -296,17 +322,39 @@ public class RegistroForm extends javax.swing.JFrame {
                                 .addComponent(numeroTF, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(58, 58, 58)))
+                        .addGap(334, 334, 334)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(256, 256, 256)
+                                    .addComponent(registerBT))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(nipTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(usuarioTF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(293, 293, 293)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(registerBT)
-                .addGap(292, 292, 292))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addComponent(jLabel11)
+                    .addContainerGap(439, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,9 +364,7 @@ public class RegistroForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(regresoBT))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel10))
+                .addComponent(jLabel10)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -351,9 +397,24 @@ public class RegistroForm extends javax.swing.JFrame {
                             .addComponent(fechaNacimientoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(usuarioTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(nipTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(registerBT)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(73, 73, 73)
+                    .addComponent(jLabel11)
+                    .addContainerGap(421, Short.MAX_VALUE)))
         );
 
         pack();
@@ -361,7 +422,7 @@ public class RegistroForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
-        if (isInformationsRequiered()) {
+        if (isInformationRequiered()) {
             Direccion direccion = registrarDireccion();
 
             Cliente cliente = registrarCliente(direccion.getId());
@@ -412,6 +473,10 @@ public class RegistroForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_fechaNacimientoTFActionPerformed
 
+    private void usuarioTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuarioTFActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidoMaternoTF;
     private javax.swing.JTextField apellidoPaternoTF;
@@ -420,7 +485,10 @@ public class RegistroForm extends javax.swing.JFrame {
     private javax.swing.JTextField fechaNacimientoTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -430,8 +498,10 @@ public class RegistroForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField nameTF;
+    private javax.swing.JPasswordField nipTF;
     private javax.swing.JTextField numeroTF;
     private javax.swing.JButton registerBT;
     private javax.swing.JButton regresoBT;
+    private javax.swing.JTextField usuarioTF;
     // End of variables declaration//GEN-END:variables
 }

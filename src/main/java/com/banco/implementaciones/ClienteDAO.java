@@ -8,17 +8,13 @@ import com.banco.dominio.Cliente;
 import com.banco.dominio.Direccion;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.IConexionBD;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class ClienteDAO implements IClienteDAO {
 
@@ -31,18 +27,18 @@ public class ClienteDAO implements IClienteDAO {
     // NOW IS WORKING, please finish them
     @Override
     public Cliente registrarse(Cliente cliente) {
-        String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, FechaNacimiento, IdDireccion) values(?,?,?,?,?)";
+        String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, nip, usuario, fechaNacimiento, idDireccion) values(?,?,?,?,?,?,?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
 
-        
             comando.setString(1, cliente.getNombre());
             comando.setString(2, cliente.getApellidoPaterno());
             comando.setString(3, cliente.getApelldioMaterno());
-            
-            comando.setString(4, cliente.getFechaNacimiento());
-            comando.setInt(5, cliente.getIdDireccion());
+            comando.setString(4, encriptarContraseña(cliente.getNip()));
+            comando.setString(5, cliente.getUsuario());
+            comando.setString(6, cliente.getFechaNacimiento());
+            comando.setInt(7, cliente.getIdDireccion());
 
             comando.executeUpdate();
             ResultSet generatedKeys = comando.getGeneratedKeys();
@@ -55,7 +51,7 @@ public class ClienteDAO implements IClienteDAO {
 
         } catch (SQLException e) {
             return null;
-        } 
+        }
         return null;
     }
 
@@ -86,7 +82,7 @@ public class ClienteDAO implements IClienteDAO {
             if (generatedKeys.next()) {
                 Integer llavePrimaria = generatedKeys.getInt(1);
                 direccion.setId(llavePrimaria);
-                
+
                 return direccion;
             }
 
@@ -96,4 +92,21 @@ public class ClienteDAO implements IClienteDAO {
         return null;
     }
 
+       public static String encriptarContraseña(String password) {
+        String encryptedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            encryptedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return encryptedPassword;
+    }
+    
 }

@@ -19,7 +19,8 @@ public class Cliente {
     private String fechaNacimiento;
     private Integer edad;
     private Integer idDireccion;
-
+    private String nip;
+    private String usuario;
     public Cliente() {
     }
 
@@ -28,6 +29,32 @@ public class Cliente {
         this.apellidoPaterno = apellidoPaterno;
         this.apelldioMaterno = apelldioMaterno;
         this.idDireccion = idDireccion;
+    }
+
+    public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno, String fechaNacimiento, Integer idDireccion, String usuario, String nip) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apelldioMaterno = apelldioMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.idDireccion = idDireccion;
+        this.usuario = usuario;
+        this.nip = nip;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
     }
     
        public Cliente(String nombre, String apellidoPaterno, String apelldioMaterno,  String fechaNacimiento,Integer idDireccion) {

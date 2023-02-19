@@ -14,29 +14,23 @@ public class Cuenta {
     
     private Integer id, idCliente;
     private double saldo;
-    private String estado, fechaApertura, usuario, contraseña;
+    private String estado, fechaApertura;
 
     public Cuenta() {
     }
 
-    public Cuenta(String usuario, String contraseña) {
-        this.usuario = usuario;
-        this.contraseña = contraseña;
-    }
 
-    public Cuenta(Integer idCliente, double saldo, String estado, String usuario) {
+
+    public Cuenta(Integer idCliente, double saldo, String estado) {
         this.idCliente = idCliente;
         this.saldo = saldo;
         this.estado = estado;
-        this.usuario = usuario;
     }
 
-    public Cuenta(Integer idCliente, String estado, String fechaApertura, String usuario, String contraseña) {
+    public Cuenta(Integer idCliente, String estado, String fechaApertura) {
         this.idCliente = idCliente;
         this.estado = estado;
         this.fechaApertura = fechaApertura;
-        this.usuario = usuario;
-        this.contraseña = contraseña;
     }
 
     public Integer getId() {
@@ -78,23 +72,6 @@ public class Cuenta {
     public void setFechaApertura(String fechaApertura) {
         this.fechaApertura = fechaApertura;
     }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
  
     @Override
     public int hashCode() {

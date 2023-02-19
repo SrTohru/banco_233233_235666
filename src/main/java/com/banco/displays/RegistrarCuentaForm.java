@@ -6,8 +6,6 @@ package com.banco.displays;
 
 import com.banco.dominio.Cliente;
 import com.banco.dominio.Cuenta;
-import com.banco.implementaciones.ClienteDAO;
-import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
 
@@ -33,8 +31,8 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     private Cuenta extraerDatosFormularioUsuario() {
         String usuario = this.usuarioTF.getText();
         String contraseña = this.passwordTF.getText();
-        Cuenta cuenta = new Cuenta(usuario, contraseña);
-        return cuenta;
+        //Cuenta cuenta = new Cuenta(usuario, contraseña);
+        return null;
     }
 
     private void mostrarMensajeCuentaCreada(Cuenta cuenta) {
@@ -157,11 +155,11 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usuarioTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptarBT)
                     .addComponent(cancelarBT))
