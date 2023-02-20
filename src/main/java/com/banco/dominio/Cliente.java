@@ -18,12 +18,18 @@ public class Cliente {
     private String apellidoMaterno;
     private String fechaNacimiento;
     private Integer edad;
-    private Integer idDireccion;
-    private String nip;
-    private String usuario;
-    public Cliente() {
-    }
+    private Integer idDireccion, idCuenta;
 
+    
+       private String nip;
+    private String usuario;
+
+    public Cliente(String nip, String usuario) {
+        this.nip = nip;
+        this.usuario = usuario;
+    }
+    
+    
     public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, Integer idDireccion) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -41,20 +47,15 @@ public class Cliente {
         this.nip = nip;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
+    public Cliente(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNacimiento, Integer idDireccion, Integer idCuenta, String usuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.idDireccion = idDireccion;
+        this.idCuenta = idCuenta;
         this.usuario = usuario;
-    }
-
-    public String getNip() {
-        return nip;
-    }
-
-    public void setNip(String nip) {
-        this.nip = nip;
     }
     
        public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno,  String fechaNacimiento, Integer idDireccion) {
@@ -93,6 +94,34 @@ public class Cliente {
         this.idDireccion = idDireccion;
     }
 
+    
+       public Integer getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Integer idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+    
+    public Cliente() {
+    }
+    
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+    
     public Integer getId() {
         return id;
     }

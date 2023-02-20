@@ -4,6 +4,7 @@
  */
 package com.banco.displays;
 
+import com.banco.dominio.Cliente;
 import com.banco.dominio.Cuenta;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
@@ -14,54 +15,57 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class LoginForm extends javax.swing.JFrame {
-    
+
     private final IClienteDAO clientesDAO;
     private final ICuentaDAO cuentaDAO;
+
     public LoginForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO) {
         this.clientesDAO = clientesDAO;
         this.cuentaDAO = cuentaDAO;
         initComponents();
     }
-//finish this
-    
-    public void insertar(){
-        if(isInfoRequieres()){
-            Cuenta cuenta = obtenerInformacionCuenta();
-       cuentaDAO.iniciarSesion(cuenta);
-        }else{
-            JOptionPane.showMessageDialog(this, "erorr");
+
+    public Cliente insertar() {
+        try {
+            Cliente cliente = obtenerInformacionCuenta();
+          Cliente c =  cuentaDAO.iniciarSesion(cliente);
+             JOptionPane.showMessageDialog(this, "Entraste pedazo de wey");
+             return c;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error");
+            return null;
         }
-            
-        
+
     }
-    
-    public Cuenta obtenerInformacionCuenta(){
+
+    public Cliente obtenerInformacionCuenta() {
         String user = this.userTF.getText();
         String password = this.passwordTF.getText();
-       // Cuenta c = new Cuenta(user, password);
-        
-        return null;
+        Cliente c = new Cliente(user, password);
+
+        return c;
     }
-    public boolean isInfoRequieres(){
-        
-        if(userTF.getText().equalsIgnoreCase("") || passwordTF.getText().equalsIgnoreCase("")){
+
+    public boolean isInfoRequieres() {
+
+        if (userTF.getText().equalsIgnoreCase("") || passwordTF.getText().equalsIgnoreCase("")) {
             return false;
         }
-        
+
         return true;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         loginBT = new javax.swing.JButton();
         registerBT = new javax.swing.JButton();
-        passwordTF = new javax.swing.JTextField();
         userTF = new javax.swing.JTextField();
         passwordLB = new javax.swing.JLabel();
         userLB = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        regresarBT = new javax.swing.JButton();
+        passwordTF = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -87,9 +91,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        passwordTF.setBackground(new java.awt.Color(255, 255, 255));
-        passwordTF.setForeground(new java.awt.Color(0, 0, 0));
-
         userTF.setBackground(new java.awt.Color(255, 255, 255));
         userTF.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -102,22 +103,15 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel1.setText("Inicio de sesion");
 
-        regresarBT.setText("Regresar");
-        regresarBT.setToolTipText("");
-        regresarBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarBTActionPerformed(evt);
-            }
-        });
+        passwordTF.setBackground(new java.awt.Color(255, 255, 255));
+        passwordTF.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(regresarBT)
-                .addGap(95, 95, 95)
+                .addGap(190, 190, 190)
                 .addComponent(jLabel1)
                 .addGap(103, 188, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -128,11 +122,10 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(userLB)
                             .addComponent(passwordLB))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loginBT)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(passwordTF, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                                .addComponent(userTF)))
+                            .addComponent(userTF, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                            .addComponent(passwordTF))
                         .addGap(111, 111, 111))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(registerBT)
@@ -141,22 +134,17 @@ public class LoginForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(regresarBT)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userTF, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userTF, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLB))
-                .addGap(38, 38, 38)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordLB))
-                .addGap(36, 36, 36)
+                    .addComponent(passwordLB)
+                    .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addComponent(loginBT, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(registerBT)
@@ -168,34 +156,34 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBTActionPerformed
-        
+
         dispose();
-       //new RegistroClienteForm(clientesDAO, cuentaDAO).setVisible(true);
+        new RegistroClienteForm(clientesDAO, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_registerBTActionPerformed
 
     private void loginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTActionPerformed
-      if(isInfoRequieres()){
-          insertar();
-      }else{
-          JOptionPane.showMessageDialog(this, "asdasdasdasdasda");
-      }
+        if (isInfoRequieres()) {
+            
+            
+            Cliente c =insertar();
+            if(c != null){
+                 JOptionPane.showMessageDialog(null, "idCliente: " + c.getId());
+            }else{
+                 JOptionPane.showMessageDialog(this, "Error");
+            }
+           
+        } else {
+            JOptionPane.showMessageDialog(this, "asdasdasdasdasda");
+        }
     }//GEN-LAST:event_loginBTActionPerformed
 
-    private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
-    }//GEN-LAST:event_regresarBTActionPerformed
-
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton loginBT;
     private javax.swing.JLabel passwordLB;
-    private javax.swing.JTextField passwordTF;
+    private javax.swing.JPasswordField passwordTF;
     private javax.swing.JButton registerBT;
-    private javax.swing.JButton regresarBT;
     private javax.swing.JLabel userLB;
     private javax.swing.JTextField userTF;
     // End of variables declaration//GEN-END:variables

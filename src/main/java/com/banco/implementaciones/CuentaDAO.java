@@ -35,7 +35,7 @@ public class CuentaDAO implements ICuentaDAO {
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
 
             LocalDate fechaActual = LocalDate.now();
-           
+
             comando.setString(1, cuenta.getAlias());
             comando.setString(2, "activa");
             comando.setString(3, fechaActual.toString());
@@ -69,35 +69,59 @@ public class CuentaDAO implements ICuentaDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
     @Override
-    public Cuenta iniciarSesion(Cuenta cuenta) {
-        String codigoSQL = "SELECT (usuario, contraseña,estado, saldo, IdCliente) FROM cuentas WHERE usuario = ? AND contraseña = ?";
+    public Cliente iniciarSesion(Cliente cliente) {
+        String codigoSQL = "SELECT * FROM Clientes WHERE usuario = ?";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
-                PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement comando = conexion.prepareStatement(codigoSQL);) {
 
-           // comando.setString(1, cuenta.getUsuario());
-          //  comando.setString(1, encriptarContraseña(cuenta.getContraseña()));
+           comando.setString(1, cliente.getUsuario());
+            //comando.setString(2, encriptarContraseña(cliente.getNip()));
 
-            comando.executeUpdate();
             ResultSet result = comando.executeQuery();
-
+            
+            Cliente c = null;
+            
             if (result.next()) {
+                Integer id = result.getInt("id");
                 String user = result.getString("usuario");
-                String estado = result.getString("estado");
-                double saldo = result.getDouble("saldo");
-                Integer idCliente = result.getInt("usuario");
-             //   Cuenta c = new Cuenta(idCliente, saldo, estado, user);
-            //    c.setId(comando.getGeneratedKeys().getInt(1));
-              //  JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + idCliente + " : " + c.getId());
-               // return c;
+                Integer idCuenta = result.getInt("idCuenta");
+                  //JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
+                String nombre = result.getString("nombre");
+                String apellidoPaterno = result.getString("apellidoPaterno");
+                String apellidoMaterno = result.getString("apellidoMaterno");
+                String fechaNacimiento = result.getString("fechaNacimiento");
+                Integer idDireccion = result.getInt("idDireccion");
+                
+             //   JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
+                c =  new Cliente(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, idDireccion, idCuenta, user);
+
+                
+                return c;
             }
 
         } catch (SQLException e) {
             return null;
         }
         return null;
+    }
+
+    public static String encriptarContraseña(String password) {
+        String encryptedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            encryptedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return encryptedPassword;
     }
 
 }

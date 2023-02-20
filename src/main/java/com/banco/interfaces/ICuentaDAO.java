@@ -16,5 +16,5 @@ public interface ICuentaDAO {
     Cuenta crear(Cuenta cuenta, Cliente cliente);
     Cuenta transferir ();
     Cuenta retirar (String folio, String contrasenia);
-    Cuenta iniciarSesion(Cuenta cuenta);
+    Cliente iniciarSesion(Cliente cliente);
 }

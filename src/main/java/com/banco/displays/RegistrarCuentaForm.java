@@ -13,7 +13,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     private final Cliente cliente;
     private final ICuentaDAO cuentaDAO;
-
+    
     public RegistrarCuentaForm(Cliente cliente, ICuentaDAO cuentaDAO) {
         this.cliente = cliente;
         this.cuentaDAO = cuentaDAO;
@@ -140,6 +140,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     private void cancelarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBTActionPerformed
         // TODO add your handling code here:
         dispose();
+         new InicioForm(null, cuentaDAO).setVisible(true);
     }//GEN-LAST:event_cancelarBTActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

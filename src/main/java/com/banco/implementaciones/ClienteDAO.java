@@ -24,7 +24,6 @@ public class ClienteDAO implements IClienteDAO {
         this.GENERADOR_CONEXIONES = generadorConexiones;
     }
 
-    // NOW IS WORKING, please finish them
     @Override
     public Cliente registrarse(Cliente cliente) {
         String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, nip, usuario, fechaNacimiento, idDireccion) values(?,?,?,?,?,?,?)";
@@ -92,7 +91,7 @@ public class ClienteDAO implements IClienteDAO {
         return null;
     }
 
-       public static String encriptarContraseña(String password) {
+    public static String encriptarContraseña(String password) {
         String encryptedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -108,5 +107,5 @@ public class ClienteDAO implements IClienteDAO {
         }
         return encryptedPassword;
     }
-    
+
 }
