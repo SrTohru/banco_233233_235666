@@ -26,7 +26,7 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public Cliente registrarse(Cliente cliente) {
-        String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, nip, usuario, fechaNacimiento, idDireccion) values(?,?,?,?,?,?,?)";
+        String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, usuario, nip, fechaNacimiento, idDireccion) values(?,?,?,?,?,?,?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
@@ -34,8 +34,8 @@ public class ClienteDAO implements IClienteDAO {
             comando.setString(1, cliente.getNombre());
             comando.setString(2, cliente.getApellidoPaterno());
             comando.setString(3, cliente.getApellidoMaterno());
-            comando.setString(4, encriptarContraseña(cliente.getNip()));
-            comando.setString(5, cliente.getUsuario());
+            comando.setString(4, cliente.getUsuario());
+            comando.setString(5, encriptarContraseña(cliente.getNip()));
             comando.setString(6, cliente.getFechaNacimiento());
             comando.setInt(7, cliente.getIdDireccion());
 

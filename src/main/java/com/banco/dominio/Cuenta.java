@@ -14,14 +14,14 @@ public class Cuenta {
 
     private Integer id, idCliente;
     private double saldo;
-    private String estado, fechaApertura, alias;
+    private String estado, fechaApertura;
 
     public Cuenta() {
     }
 
-    public Cuenta(Integer idCliente, String alias) {
+    public Cuenta(Integer idCliente, double monto) {
         this.idCliente = idCliente;
-        this.alias = alias;
+        this.saldo = monto;
     }
 
     public Cuenta(Integer idCliente, double saldo, String estado) {
@@ -36,21 +36,12 @@ public class Cuenta {
         this.fechaApertura = fechaApertura;
     }
 
-    public Cuenta(Integer id, Integer idCliente, double saldo, String estado, String fechaApertura, String alias) {
+    public Cuenta(Integer id, Integer idCliente, double saldo, String estado, String fechaApertura) {
         this.id = id;
         this.idCliente = idCliente;
         this.saldo = saldo;
         this.estado = estado;
         this.fechaApertura = fechaApertura;
-        this.alias = alias;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
     }
 
     public Integer getId() {

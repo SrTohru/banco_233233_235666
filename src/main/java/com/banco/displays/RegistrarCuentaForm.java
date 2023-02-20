@@ -21,12 +21,12 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     }
 
     public boolean isInformationsRequiered() {
-        return (aliasTF.getText().equalsIgnoreCase(""));
+        return (montoDineroTF.getText().equalsIgnoreCase(""));
     }
 
     private Cuenta extraerDatosFormularioUsuario() {
-        String alias = this.aliasTF.getText();
-        Cuenta cuenta = new Cuenta(cliente.getId(), alias);
+        Double monto = Double.parseDouble(this.montoDineroTF.getText());
+        Cuenta cuenta = new Cuenta(cliente.getId(), monto);
         return cuenta;
     }
 
@@ -58,10 +58,12 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        aliasTF = new javax.swing.JTextField();
+        montoDineroTF = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         aceptarBT = new javax.swing.JButton();
         cancelarBT = new javax.swing.JButton();
+        idClienteTF = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +71,7 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
         jLabel1.setText("Registra una Cuenta");
 
         jLabel3.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        jLabel3.setText("Alias:");
+        jLabel3.setText("Monto de dinero:");
 
         aceptarBT.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         aceptarBT.setText("Aceptar");
@@ -87,42 +89,55 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
+        jLabel4.setText("IdCliente:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(aceptarBT)
-                .addGap(75, 75, 75)
-                .addComponent(cancelarBT)
-                .addGap(157, 157, 157))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(182, 182, 182)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(aliasTF, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(idClienteTF, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(montoDineroTF, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(66, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(aceptarBT)
+                .addGap(75, 75, 75)
+                .addComponent(cancelarBT)
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aliasTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idClienteTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(montoDineroTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(60, 60, 60)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarBT)
                     .addComponent(aceptarBT))
-                .addGap(151, 151, 151))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         pack();
@@ -145,9 +160,11 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarBT;
-    private javax.swing.JTextField aliasTF;
     private javax.swing.JButton cancelarBT;
+    private javax.swing.JTextField idClienteTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField montoDineroTF;
     // End of variables declaration//GEN-END:variables
 }

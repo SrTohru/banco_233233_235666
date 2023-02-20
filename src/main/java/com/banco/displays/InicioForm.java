@@ -174,7 +174,12 @@ public class InicioForm extends javax.swing.JFrame {
     private void historialBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialBTActionPerformed
         // TODO add your handling code here:
         dispose();
-        new HistorialForm(clientesDAO).setVisible(true);
+           if (cliente != null && cuenta != null) {
+            new HistorialForm(clientesDAO).setVisible(true);
+            dispose();
+        } else {
+            mostrarErrorDeposito();
+        }
     }//GEN-LAST:event_historialBTActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,14 +22,14 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     }
 
     public boolean isInformationRequiered() {
-        if (nameTF.getText().equalsIgnoreCase("")
-                || apellidoPaternoTF.getText().equalsIgnoreCase("")
-                || apellidoMaternoTF.getText().equalsIgnoreCase("")
-                || calleTF.getText().equalsIgnoreCase("")
-                || numeroTF.getText().equalsIgnoreCase("")
-                || coloniaTF.getText().equalsIgnoreCase("")
-                || nipTF.getText().equalsIgnoreCase("")
-                || usuarioTF.getText().equalsIgnoreCase("")) {
+        if (nameTF.getText().isEmpty()
+                || apellidoPaternoTF.getText().isEmpty()
+                || apellidoMaternoTF.getText().isEmpty()
+                || calleTF.getText().isEmpty()
+                || numeroTF.getText().isEmpty()
+                || coloniaTF.getText().isEmpty()
+                || nipTF.getText().isEmpty()
+                || usuarioTF.getText().isEmpty()) {
             return false;
         }
         return true;
@@ -42,7 +42,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         String fechaNacimiento = this.fechaNacimientoTF.getText();
         String usuario = this.usuarioTF.getText();
         String nip = this.nipTF.getText();
-        Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 0, usuario, nip);
+        Cliente cliente = new Cliente(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 0, nip, usuario);
         return cliente;
     }
 

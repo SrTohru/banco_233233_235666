@@ -29,26 +29,24 @@ public class CuentaDAO implements ICuentaDAO {
     @Override
     public Cuenta crear(Cuenta cuenta, Cliente cliente) {
 
-        String codigoSQL = "INSERT INTO cuentas (alias, estado, fechaApertura, saldo, idCliente) values(?,?,?,?,?)";
+        String codigoSQL = "INSERT INTO cuentas (estado, fechaApertura, saldo, idCliente) values(?,?,?,?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
 
             LocalDate fechaActual = LocalDate.now();
 
-            comando.setString(1, cuenta.getAlias());
-            comando.setString(2, "activa");
-            comando.setString(3, fechaActual.toString());
-            comando.setDouble(4, 0.0);
-            comando.setInt(5, cliente.getId());
+            comando.setString(1, "activa");
+            comando.setString(2, fechaActual.toString());
+            comando.setDouble(3, cuenta.getSaldo());
+            comando.setInt(4, cliente.getId());
 
             comando.executeUpdate();
             ResultSet generatedKeys = comando.getGeneratedKeys();
 
             if (generatedKeys.next()) {
                 Integer llavePrimaria = generatedKeys.getInt(1);
-                //public Cuenta(Integer id, Integer idCliente, double saldo, String estado, String fechaApertura, String alias) {
-                Cuenta c = new Cuenta(llavePrimaria, cliente.getId(), 0.0, "activa", fechaActual.toString(), cuenta.getAlias());
+                Cuenta c = new Cuenta(llavePrimaria, cliente.getId(), 0.0, "activa", fechaActual.toString());
                 c.setId(llavePrimaria);
                 return c;
             }
@@ -71,33 +69,32 @@ public class CuentaDAO implements ICuentaDAO {
 
     @Override
     public Cliente iniciarSesion(Cliente cliente) {
-        String codigoSQL = "SELECT * FROM Clientes WHERE usuario = ?";
+        String codigoSQL = "SELECT * FROM Clientes WHERE usuario = ? AND nip = ?";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
                 PreparedStatement comando = conexion.prepareStatement(codigoSQL);) {
 
-           comando.setString(1, cliente.getUsuario());
-            //comando.setString(2, encriptarContraseña(cliente.getNip()));
+            comando.setString(1, cliente.getUsuario());
+            comando.setString(2, encriptarContraseña(cliente.getNip()));
 
             ResultSet result = comando.executeQuery();
-            
+
             Cliente c = null;
-            
+
             if (result.next()) {
                 Integer id = result.getInt("id");
                 String user = result.getString("usuario");
-                Integer idCuenta = result.getInt("idCuenta");
-                  //JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
+                // Integer idCuenta = result.getInt("idCuenta");
+                //JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
                 String nombre = result.getString("nombre");
                 String apellidoPaterno = result.getString("apellidoPaterno");
                 String apellidoMaterno = result.getString("apellidoMaterno");
                 String fechaNacimiento = result.getString("fechaNacimiento");
                 Integer idDireccion = result.getInt("idDireccion");
-                
-             //   JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
-                c =  new Cliente(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, idDireccion, idCuenta, user);
 
-                
+                //   JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
+                c = new Cliente(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, idDireccion, 0);
+
                 return c;
             }
 
