@@ -51,6 +51,23 @@ public class InicioForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "No se puede realizar un deposito sin haber iniciado sesion",
                 "Información ", JOptionPane.INFORMATION_MESSAGE);
     }
+    private void mostrarErrorHistorial() {
+        JOptionPane.showMessageDialog(this, "No se puede ver el historial sin haber iniciado sesion",
+                "Información ", JOptionPane.INFORMATION_MESSAGE);
+    }
+      private void mostrarErrorActualizar() {
+        JOptionPane.showMessageDialog(this, "No se puede realizar una actualizacion sin haber iniciado sesion",
+                "Información ", JOptionPane.INFORMATION_MESSAGE);
+    }
+        private void mostrarErrorGenerarRetiro() {
+        JOptionPane.showMessageDialog(this, "No se puede generar un retiro sin haber iniciado sesion",
+                "Información ", JOptionPane.INFORMATION_MESSAGE);
+    }
+        
+          private void mostrarErrorCrearCuenta() {
+        JOptionPane.showMessageDialog(this, "No se puede crear un cuenta sin haber iniciado sesion",
+                "Información ", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -222,7 +239,7 @@ public class InicioForm extends javax.swing.JFrame {
             new ActualizarClienteForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
             dispose();
         } else {
-            mostrarErrorDeposito();
+            mostrarErrorActualizar();
         }
     }//GEN-LAST:event_actualizaClienteBTActionPerformed
 
@@ -234,7 +251,7 @@ public class InicioForm extends javax.swing.JFrame {
             new HistorialForm(clientesDAO,cuentaDAO, cliente).setVisible(true);
             dispose();
         } else {
-            mostrarErrorDeposito();
+            mostrarErrorHistorial();
         }
     }//GEN-LAST:event_historialBTActionPerformed
 
@@ -243,7 +260,7 @@ public class InicioForm extends javax.swing.JFrame {
             dispose();
             new GenerarRetiroSinCuenta(cuentaDAO, clientesDAO, cliente).setVisible(true);
         } else {
-            mostrarErrorDeposito();
+            mostrarErrorGenerarRetiro();
         }
     }//GEN-LAST:event_generarRetiroBTActionPerformed
 
@@ -252,7 +269,7 @@ public class InicioForm extends javax.swing.JFrame {
             dispose();
             new RegistrarCuentaForm(cliente, clientesDAO, cuentaDAO).setVisible(true);
         } else {
-            mostrarErrorDeposito();
+            mostrarErrorCrearCuenta();
         }
     }//GEN-LAST:event_crearCuentBT1ActionPerformed
 

@@ -181,6 +181,7 @@ public class LoginForm extends javax.swing.JFrame {
             if (c != null) {
                 dispose();
                 new InicioForm(clientesDAO, cuentaDAO, c).setVisible(true);
+                JOptionPane.showMessageDialog(this, "Inicio sesion correctamente");
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo crear el cliente");
             }
