@@ -13,7 +13,7 @@ import com.banco.dominio.Direccion;
  */
 public interface IClienteDAO {
     
-    Cliente registrarse (Cliente cliente);
+    Cliente registrarse (Cliente cliente,Direccion direccion);
     Direccion ingresarDireccion(Direccion direccion);
     Cliente actualizar (Cliente cliente);
     Cliente cancelarCuenta ();

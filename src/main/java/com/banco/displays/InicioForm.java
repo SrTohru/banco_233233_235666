@@ -29,6 +29,15 @@ public class InicioForm extends javax.swing.JFrame {
         initComponents();
     }
 
+    public InicioForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO, Cliente cliente) {
+        this.clientesDAO = clientesDAO;
+        this.cuentaDAO = cuentaDAO;
+        this.cliente = cliente;
+        this.cuenta = null;
+
+        initComponents();
+    }
+
     public InicioForm(IClienteDAO clientesDAO, ICuentaDAO cuentaDAO, Cliente cliente, Cuenta cuenta) {
         this.clientesDAO = clientesDAO;
         this.cuentaDAO = cuentaDAO;
@@ -53,13 +62,19 @@ public class InicioForm extends javax.swing.JFrame {
         historialBT = new javax.swing.JButton();
         depositoBT = new javax.swing.JButton();
         actualizaClienteBT = new javax.swing.JButton();
+        generarRetiroBT = new javax.swing.JButton();
+        crearCuentBT1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Inicio");
+        setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel1.setText("Inicio");
 
+        inicioSesionBT.setBackground(new java.awt.Color(255, 255, 255));
         inicioSesionBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        inicioSesionBT.setForeground(new java.awt.Color(0, 0, 0));
         inicioSesionBT.setText("Iniciar sesion");
         inicioSesionBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +82,9 @@ public class InicioForm extends javax.swing.JFrame {
             }
         });
 
+        registroBT.setBackground(new java.awt.Color(255, 255, 255));
         registroBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        registroBT.setForeground(new java.awt.Color(0, 0, 0));
         registroBT.setText("Registro");
         registroBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +92,9 @@ public class InicioForm extends javax.swing.JFrame {
             }
         });
 
+        historialBT.setBackground(new java.awt.Color(255, 255, 255));
         historialBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        historialBT.setForeground(new java.awt.Color(0, 0, 0));
         historialBT.setText("Historial");
         historialBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +102,9 @@ public class InicioForm extends javax.swing.JFrame {
             }
         });
 
+        depositoBT.setBackground(new java.awt.Color(255, 255, 255));
         depositoBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        depositoBT.setForeground(new java.awt.Color(0, 0, 0));
         depositoBT.setText("Deposito");
         depositoBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +112,9 @@ public class InicioForm extends javax.swing.JFrame {
             }
         });
 
-        actualizaClienteBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        actualizaClienteBT.setBackground(new java.awt.Color(255, 255, 255));
+        actualizaClienteBT.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        actualizaClienteBT.setForeground(new java.awt.Color(0, 0, 0));
         actualizaClienteBT.setText("Actualizar cliente");
         actualizaClienteBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,46 +122,73 @@ public class InicioForm extends javax.swing.JFrame {
             }
         });
 
+        generarRetiroBT.setBackground(new java.awt.Color(255, 255, 255));
+        generarRetiroBT.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        generarRetiroBT.setForeground(new java.awt.Color(0, 0, 0));
+        generarRetiroBT.setText("Generar retiro");
+        generarRetiroBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarRetiroBTActionPerformed(evt);
+            }
+        });
+
+        crearCuentBT1.setBackground(new java.awt.Color(255, 255, 255));
+        crearCuentBT1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        crearCuentBT1.setForeground(new java.awt.Color(0, 0, 0));
+        crearCuentBT1.setText("Crear cuenta");
+        crearCuentBT1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearCuentBT1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(inicioSesionBT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(depositoBT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(actualizaClienteBT, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(generarRetiroBT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(220, 220, 220))
             .addGroup(layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(registroBT, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(actualizaClienteBT)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inicioSesionBT)
-                                .addGap(27, 27, 27)
-                                .addComponent(historialBT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(depositoBT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(registroBT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addComponent(historialBT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(crearCuentBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(actualizaClienteBT)
-                    .addComponent(inicioSesionBT)
-                    .addComponent(historialBT))
-                .addGap(18, 18, 18)
-                .addComponent(registroBT)
-                .addGap(18, 18, 18)
-                .addComponent(depositoBT)
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(depositoBT)
+                    .addComponent(inicioSesionBT))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registroBT)
+                    .addComponent(historialBT)
+                    .addComponent(crearCuentBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(actualizaClienteBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generarRetiroBT, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,8 +207,8 @@ public class InicioForm extends javax.swing.JFrame {
 
     private void depositoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositoBTActionPerformed
 
-        if (cliente != null && cuenta != null) {
-            new DepositoForm(clientesDAO, cuentaDAO, cliente, cuenta).setVisible(true);
+        if (cliente != null) {
+            new DepositoForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
             dispose();
         } else {
             mostrarErrorDeposito();
@@ -173,8 +223,9 @@ public class InicioForm extends javax.swing.JFrame {
 
     private void historialBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialBTActionPerformed
         // TODO add your handling code here:
-        dispose();
-           if (cliente != null && cuenta != null) {
+
+        if (cliente != null && cuenta != null) {
+            dispose();
             new HistorialForm(clientesDAO).setVisible(true);
             dispose();
         } else {
@@ -182,9 +233,29 @@ public class InicioForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_historialBTActionPerformed
 
+    private void generarRetiroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarRetiroBTActionPerformed
+        if (cliente != null) {
+            dispose();
+            new GenerarRetiroSinCuenta(cuentaDAO, clientesDAO, cliente).setVisible(true);
+        } else {
+            mostrarErrorDeposito();
+        }
+    }//GEN-LAST:event_generarRetiroBTActionPerformed
+
+    private void crearCuentBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearCuentBT1ActionPerformed
+        if(cliente != null){
+            dispose();
+            new RegistrarCuentaForm(cliente, clientesDAO, cuentaDAO).setVisible(true);
+        }else{
+            mostrarErrorDeposito();
+        }
+    }//GEN-LAST:event_crearCuentBT1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizaClienteBT;
+    private javax.swing.JButton crearCuentBT1;
     private javax.swing.JButton depositoBT;
+    private javax.swing.JButton generarRetiroBT;
     private javax.swing.JButton historialBT;
     private javax.swing.JButton inicioSesionBT;
     private javax.swing.JLabel jLabel1;

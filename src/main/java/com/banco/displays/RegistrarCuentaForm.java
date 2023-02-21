@@ -6,6 +6,7 @@ package com.banco.displays;
 
 import com.banco.dominio.Cliente;
 import com.banco.dominio.Cuenta;
+import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
 
@@ -13,11 +14,14 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     private final Cliente cliente;
     private final ICuentaDAO cuentaDAO;
+    private final IClienteDAO clienteDAO;
     
-    public RegistrarCuentaForm(Cliente cliente, ICuentaDAO cuentaDAO) {
+    public RegistrarCuentaForm(Cliente cliente,IClienteDAO clienteDAO, ICuentaDAO cuentaDAO) {
         this.cliente = cliente;
         this.cuentaDAO = cuentaDAO;
+        this.clienteDAO = clienteDAO;
         initComponents();
+        idClienteTF.setText(cliente.getId().toString());
     }
 
     public boolean isInformationsRequiered() {
@@ -89,6 +93,8 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
             }
         });
 
+        idClienteTF.setEditable(false);
+
         jLabel4.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel4.setText("IdCliente:");
 
@@ -146,16 +152,22 @@ public class RegistrarCuentaForm extends javax.swing.JFrame {
 
     private void aceptarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBTActionPerformed
         Cuenta c = registrarCuenta();
-        
-        if(c != null){
+
+        if (c != null) {
             dispose();
+            new InicioForm(clienteDAO, cuentaDAO, cliente, c).setVisible(true);
         }
     }//GEN-LAST:event_aceptarBTActionPerformed
 
     private void cancelarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBTActionPerformed
         // TODO add your handling code here:
         dispose();
-         new InicioForm(null, cuentaDAO).setVisible(true);
+        if(cliente != null){
+            new InicioForm(clienteDAO, cuentaDAO, cliente).setVisible(true);
+        }else{
+             new InicioForm(clienteDAO, cuentaDAO).setVisible(true);
+        }
+    
     }//GEN-LAST:event_cancelarBTActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

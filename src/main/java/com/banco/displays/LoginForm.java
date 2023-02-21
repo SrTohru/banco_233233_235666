@@ -25,7 +25,7 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Cliente insertar() {
+    public Cliente consultarCuenta() {
         try {
             Cliente cliente = obtenerInformacionCuenta();
             Cliente c = cuentaDAO.iniciarSesion(cliente);
@@ -177,11 +177,10 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void loginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTActionPerformed
         if (isInfoRequieres()) {
-            Cliente c = insertar();
+            Cliente c = consultarCuenta();
             if (c != null) {
-                JOptionPane.showMessageDialog(null, "idCliente: " + c.getId());
                 dispose();
-                new RegistrarCuentaForm(c, cuentaDAO).setVisible(true);
+                new InicioForm(clientesDAO, cuentaDAO, c).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo crear el cliente");
             }

@@ -14,7 +14,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class ClienteDAO implements IClienteDAO {
 
@@ -25,33 +27,57 @@ public class ClienteDAO implements IClienteDAO {
     }
 
     @Override
-    public Cliente registrarse(Cliente cliente) {
-        String codigoSQL = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, usuario, nip, fechaNacimiento, idDireccion) values(?,?,?,?,?,?,?)";
+    public Cliente registrarse(Cliente cliente, Direccion direccion) {
+        String sqlCliente = "INSERT INTO clientes (nombre, apellidoPaterno, apellidoMaterno, usuario, nip, fechaNacimiento, idDireccion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sqlDireccion = "INSERT INTO direcciones (calle, colonia, numExterior) VALUES (?, ?, ?)";
         try (
                 Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
-                PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement cDireccion = conexion.prepareStatement(sqlDireccion, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement cCliente = conexion.prepareStatement(sqlCliente, Statement.RETURN_GENERATED_KEYS);) {
+            conexion.setAutoCommit(false); // Desactivar auto-commit
 
-            comando.setString(1, cliente.getNombre());
-            comando.setString(2, cliente.getApellidoPaterno());
-            comando.setString(3, cliente.getApellidoMaterno());
-            comando.setString(4, cliente.getUsuario());
-            comando.setString(5, encriptarContraseña(cliente.getNip()));
-            comando.setString(6, cliente.getFechaNacimiento());
-            comando.setInt(7, cliente.getIdDireccion());
-
-            comando.executeUpdate();
-            ResultSet generatedKeys = comando.getGeneratedKeys();
-
-            if (generatedKeys.next()) {
-                Integer llavePrimaria = generatedKeys.getInt(1);
-                cliente.setId(llavePrimaria);
-                return cliente;
+            // Insertar dirección
+            cDireccion.setString(1, direccion.getCalle());
+            cDireccion.setString(2, direccion.getColonia());
+            cDireccion.setString(3, direccion.getNumExterior());
+            cDireccion.executeUpdate();
+            ResultSet llaveDireccion = cDireccion.getGeneratedKeys();
+            Integer llavePrimariaDireccion = null;
+            if (llaveDireccion.next()) {
+                llavePrimariaDireccion = llaveDireccion.getInt(1);
+                JOptionPane.showMessageDialog(null, "Llave primaria direccion: " + llavePrimariaDireccion);
+            } else {
+                throw new SQLException("No se pudo obtener la llave primaria para la dirección insertada");
             }
 
+            // Insertar cliente
+            cCliente.setString(1, cliente.getNombre());
+            cCliente.setString(2, cliente.getApellidoPaterno());
+            cCliente.setString(3, cliente.getApellidoMaterno());
+            cCliente.setString(4, cliente.getUsuario());
+            cCliente.setString(5, encriptarContraseña(cliente.getNip()));
+            cCliente.setString(6, cliente.getFechaNacimiento());
+            cCliente.setInt(7, llavePrimariaDireccion);
+            cCliente.executeUpdate();
+
+            ResultSet llaveCliente = cCliente.getGeneratedKeys();
+            Integer llavePrimariaCliente = null;
+            if (llaveCliente.next()) {
+                llavePrimariaCliente = llaveCliente.getInt(1);
+            } else {
+                throw new SQLException("No se pudo obtener la llave primaria para el cliente insertado");
+            }
+
+            conexion.commit(); // Confirmar transacción
+
+            // Asignar llave primaria al objeto Cliente
+            cliente.setId(llavePrimariaCliente);
+            return cliente;
+
         } catch (SQLException e) {
+            System.out.println("Error al insertar en la base de datos: " + e.getMessage());
             return null;
         }
-        return null;
     }
 
     @Override
