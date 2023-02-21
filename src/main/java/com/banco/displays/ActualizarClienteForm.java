@@ -57,9 +57,7 @@ public class ActualizarClienteForm extends javax.swing.JFrame {
 
     public boolean actualizarCliente(Cliente clienteOriginal, Cliente clienteActualizado) {
         try {
-
             clientesDAO.actualizar(clienteOriginal, clienteActualizado);
-
             return true;
         } catch (Exception e) {
             return false;
@@ -325,9 +323,7 @@ public class ActualizarClienteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_fechaNacimientoTFKeyReleased
 
     private void regresoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresoBTActionPerformed
-        // TODO add your handling code here:
         dispose();
-
         new InicioForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
     }//GEN-LAST:event_regresoBTActionPerformed
 

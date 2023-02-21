@@ -11,10 +11,6 @@ import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Usuario
- */
 public class DepositoForm extends javax.swing.JFrame {
 
     private final IClienteDAO clientesDAO;

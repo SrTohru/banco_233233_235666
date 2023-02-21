@@ -52,14 +52,13 @@ public class ClienteDAO implements IClienteDAO {
                 throw new SQLException("No se pudo obtener la llave primaria para la dirección insertada");
             }
 
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            
+                    
             cCliente.setString(1, cliente.getNombre());
             cCliente.setString(2, cliente.getApellidoPaterno());
             cCliente.setString(3, cliente.getApellidoMaterno());
             cCliente.setString(4, cliente.getUsuario());
             cCliente.setString(5, encriptarContraseña(cliente.getNip()));
-            cCliente.setString(6, formato.format(cliente.getFechaNacimiento()));
+            cCliente.setString(6, cliente.getFechaNacimiento());
             cCliente.setInt(7, llavePrimariaDireccion);
             cCliente.executeUpdate();
 

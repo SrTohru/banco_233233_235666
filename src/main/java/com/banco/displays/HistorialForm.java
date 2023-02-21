@@ -230,7 +230,12 @@ public class HistorialForm extends javax.swing.JFrame {
     private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
         // TODO add your handling code here:
         dispose();
-        new InicioForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
+        if(cliente != null){
+        new InicioForm(clientesDAO, cuentaDAO, cliente).setVisible(true);    
+        }else{
+            new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
+        }
+        
     }//GEN-LAST:event_regresarBTActionPerformed
 
     private void regresarBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBT1ActionPerformed

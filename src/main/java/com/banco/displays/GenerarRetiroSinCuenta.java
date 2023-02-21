@@ -31,10 +31,10 @@ public class GenerarRetiroSinCuenta extends javax.swing.JFrame {
         try {
             String idString = this.jComboBox1.getSelectedItem().toString();
             int idOrigen = Integer.parseInt(idString.substring(0, 1));
-            
+
             double monto = Double.parseDouble(cantidadTF.getText());
             String contraseña = contraseñaBT.getText();
-            
+
             cuentaDAO.generarFolio(idOrigen, monto, contraseña);
             return true;
         } catch (Exception e) {
@@ -53,6 +53,7 @@ public class GenerarRetiroSinCuenta extends javax.swing.JFrame {
         contraseñaBT = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         generarFolioBT = new javax.swing.JButton();
+        generarFolioBT1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +86,14 @@ public class GenerarRetiroSinCuenta extends javax.swing.JFrame {
             }
         });
 
+        generarFolioBT1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        generarFolioBT1.setText("Cancelar");
+        generarFolioBT1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarFolioBT1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,10 +114,12 @@ public class GenerarRetiroSinCuenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(101, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(205, 205, 205)
                 .addComponent(generarFolioBT)
-                .addGap(227, 227, 227))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(generarFolioBT1)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,9 +136,11 @@ public class GenerarRetiroSinCuenta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(contraseñaBT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(generarFolioBT)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generarFolioBT)
+                    .addComponent(generarFolioBT1))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,11 +162,22 @@ public class GenerarRetiroSinCuenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_generarFolioBTActionPerformed
 
+    private void generarFolioBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarFolioBT1ActionPerformed
+        dispose();
+        if (cliente != null) {
+            new InicioForm(clienteDAO, cuentaDAO, cliente).setVisible(true);
+        } else {
+            new InicioForm(clienteDAO, cuentaDAO).setVisible(true);
+        }
+
+    }//GEN-LAST:event_generarFolioBT1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantidadTF;
     private javax.swing.JTextField contraseñaBT;
     private javax.swing.JButton generarFolioBT;
+    private javax.swing.JButton generarFolioBT1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -18,7 +18,7 @@ public class Prueba {
         IConexionBD manejadorConexiones = new ConexionBD(
                 "jdbc:mysql://localhost/banco",
                 "root",
-                "2210"
+                "joseeduardo"
         );
 
         IClienteDAO clientesDAO = new ClienteDAO(manejadorConexiones);

@@ -444,7 +444,12 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private void regresoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresoBTActionPerformed
         // TODO add your handling code here:
         dispose();
-        new InicioForm(clientesDAO, cuentaDAO, clienteFinal).setVisible(true);
+        if(clienteFinal != null){
+        new InicioForm(clientesDAO, cuentaDAO, clienteFinal).setVisible(true);    
+        }else{
+            new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
+        }
+        
     }//GEN-LAST:event_regresoBTActionPerformed
 
     private void apellidoMaternoTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoMaternoTFActionPerformed
