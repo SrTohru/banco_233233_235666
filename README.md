@@ -1,4 +1,7 @@
-# banco_233233_235666
+# 
+"Base de datos"
+
+banco_233233_235666
 create database banco; 
 
 use banco;
