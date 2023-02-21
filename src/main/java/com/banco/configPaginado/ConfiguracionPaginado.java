@@ -1,26 +1,27 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.banco.configPaginado;
 
 /**
  *
- * @author Usuario
+ * @author lv1013
  */
 public class ConfiguracionPaginado {
-    
+
     private int numeroPagina;
-    private int elementosPorPagina;
+    private int conteoPorPagina;
 
     public ConfiguracionPaginado() {
         this.numeroPagina = 0;
-        this.elementosPorPagina = 3;
+        this.conteoPorPagina = 5;
     }
 
-    public ConfiguracionPaginado(int numeroPagina, int elementosPorPagina) {
+    public ConfiguracionPaginado(int numeroPagina, int conteoPorPagina) {
         this.numeroPagina = numeroPagina;
-        this.elementosPorPagina = elementosPorPagina;
+        this.conteoPorPagina = conteoPorPagina;
     }
 
     public int getNumeroPagina() {
@@ -31,26 +32,26 @@ public class ConfiguracionPaginado {
         this.numeroPagina = numeroPagina;
     }
 
-    public int getElementosPorPagina() {
-        return elementosPorPagina;
+    public int getConteoPorPagina() {
+        return conteoPorPagina;
     }
 
-    public void setElementosPorPagina(int elementosPorPagina) {
-        this.elementosPorPagina = elementosPorPagina;
+    public void setConteoPorPagina(int conteoPorPagina) {
+        this.conteoPorPagina = conteoPorPagina;
     }
-    
-    public int getElementoASaltar(){
-        return this.numeroPagina * this.elementosPorPagina;
+
+    public int getElementosASaltar() {
+        return this.numeroPagina * this.conteoPorPagina;
     }
-    
-    public void avanzarPagina(){
+
+    public void avanzarPagina() {
         this.numeroPagina++;
     }
-    
-    public void retrocederPagina(){
-        if(this.numeroPagina > 0){
+
+    public void retrocederPagina() {
+        if (this.numeroPagina > 0) {
             this.numeroPagina--;
         }
     }
-       
+
 }

@@ -14,8 +14,7 @@ import com.banco.dominio.Direccion;
 public interface IClienteDAO {
     
     Cliente registrarse (Cliente cliente,Direccion direccion);
-    Direccion ingresarDireccion(Direccion direccion);
-    Cliente actualizar (Cliente cliente);
+    Cliente actualizar (Cliente clienteOriginal, Cliente clienteActualizado);
     Cliente cancelarCuenta ();
  
 }

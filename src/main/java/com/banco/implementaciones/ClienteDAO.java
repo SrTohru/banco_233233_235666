@@ -10,12 +10,14 @@ import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.IConexionBD;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 public class ClienteDAO implements IClienteDAO {
@@ -50,13 +52,14 @@ public class ClienteDAO implements IClienteDAO {
                 throw new SQLException("No se pudo obtener la llave primaria para la dirección insertada");
             }
 
-            // Insertar cliente
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            
             cCliente.setString(1, cliente.getNombre());
             cCliente.setString(2, cliente.getApellidoPaterno());
             cCliente.setString(3, cliente.getApellidoMaterno());
             cCliente.setString(4, cliente.getUsuario());
             cCliente.setString(5, encriptarContraseña(cliente.getNip()));
-            cCliente.setString(6, cliente.getFechaNacimiento());
+            cCliente.setString(6, formato.format(cliente.getFechaNacimiento()));
             cCliente.setInt(7, llavePrimariaDireccion);
             cCliente.executeUpdate();
 
@@ -81,39 +84,53 @@ public class ClienteDAO implements IClienteDAO {
     }
 
     @Override
-    public Cliente actualizar(Cliente cliente) {
-        return null;
+    public Cliente actualizar(Cliente clienteOrignial, Cliente clienteActualizado) {
+
+        Connection conexion = null;
+
+        try {
+            conexion = this.GENERADOR_CONEXIONES.crearConexion();
+
+            conexion.setAutoCommit(false);
+
+            CallableStatement spActualizarCliente = conexion.prepareCall("{call actualizar_cliente(?, ?, ?, ?, ?, ?, ?)}");
+
+            spActualizarCliente.setString(1, clienteActualizado.getNombre());
+            spActualizarCliente.setString(2, clienteActualizado.getApellidoPaterno());
+            spActualizarCliente.setString(3, clienteActualizado.getApellidoMaterno());
+            spActualizarCliente.setString(4, clienteActualizado.getUsuario());
+            spActualizarCliente.setString(5, encriptarContraseña(clienteActualizado.getNip()));
+            spActualizarCliente.setString(6, clienteActualizado.getFechaNacimiento());
+
+            spActualizarCliente.setInt(7, clienteOrignial.getId());
+            spActualizarCliente.executeUpdate();
+
+            conexion.commit();
+
+            Cliente c = new Cliente(clienteActualizado.getNombre(), clienteActualizado.getApellidoPaterno(), clienteActualizado.getApellidoMaterno(), clienteActualizado.getFechaNacimiento(), encriptarContraseña(clienteActualizado.getNip()), clienteActualizado.getUsuario());
+
+            return c;
+        } catch (SQLException e) {
+            if (conexion != null) {
+                try {
+                    conexion.rollback();
+                } catch (SQLException e1) {
+                }
+            }
+            return null;
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+
+                }
+            }
+        }
     }
 
     @Override
     public Cliente cancelarCuenta() {
-        return null;
-    }
-
-    @Override
-    public Direccion ingresarDireccion(Direccion direccion) {
-        String codigoSQL = "insert into direcciones (Calle, Colonia, NumExterior) values(?,?,?)";
-        try (
-                Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
-                PreparedStatement comando = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
-
-            comando.setString(1, direccion.getCalle());
-            comando.setString(2, direccion.getColonia());
-            comando.setString(3, direccion.getNumExterior());
-
-            comando.executeUpdate();
-            ResultSet generatedKeys = comando.getGeneratedKeys();
-
-            if (generatedKeys.next()) {
-                Integer llavePrimaria = generatedKeys.getInt(1);
-                direccion.setId(llavePrimaria);
-
-                return direccion;
-            }
-
-        } catch (SQLException e) {
-            return null;
-        }
         return null;
     }
 

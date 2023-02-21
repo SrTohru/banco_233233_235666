@@ -4,8 +4,10 @@
  */
 package com.banco.implementaciones;
 
+import com.banco.configPaginado.ConfiguracionPaginado;
 import com.banco.dominio.Cliente;
 import com.banco.dominio.Cuenta;
+import com.banco.dominio.Transaccion;
 import com.banco.interfaces.IConexionBD;
 import com.banco.interfaces.ICuentaDAO;
 import java.security.MessageDigest;
@@ -15,10 +17,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 public class CuentaDAO implements ICuentaDAO {
 
@@ -63,11 +70,12 @@ public class CuentaDAO implements ICuentaDAO {
     public boolean transferir(int idCuentaOrigen, int idCuentaDestino, double monto) {
         String sqlActualizarCuentaOrigen = "UPDATE cuentas SET saldo = saldo - ? WHERE id = ?";
         String sqlActualizarCuentaDestino = "UPDATE cuentas SET saldo = saldo + ? WHERE id = ?";
+        String sqlInsertarTransferencia = "INSERT INTO transferencias(estado,tipo, monto, idCuenta) VALUES(?,?,?,?)";
 
         Connection conexion = null;
         PreparedStatement psActualizarCuentaOrigen = null;
         PreparedStatement psActualizarCuentaDestino = null;
-
+        PreparedStatement psInsertarTranferencia = null;
         try {
             conexion = this.GENERADOR_CONEXIONES.crearConexion();
 
@@ -75,6 +83,7 @@ public class CuentaDAO implements ICuentaDAO {
 
             psActualizarCuentaOrigen = conexion.prepareStatement(sqlActualizarCuentaOrigen);
             psActualizarCuentaDestino = conexion.prepareStatement(sqlActualizarCuentaDestino);
+            psInsertarTranferencia = conexion.prepareStatement(sqlInsertarTransferencia);
 
             psActualizarCuentaOrigen.setDouble(1, monto);
             psActualizarCuentaOrigen.setInt(2, idCuentaOrigen);
@@ -84,6 +93,11 @@ public class CuentaDAO implements ICuentaDAO {
             psActualizarCuentaDestino.setInt(2, idCuentaDestino);
             psActualizarCuentaDestino.executeUpdate();
 
+            psInsertarTranferencia.setString(1, "exitosa");
+            psInsertarTranferencia.setString(2, "Deposito");
+            psInsertarTranferencia.setDouble(3, monto);
+            psInsertarTranferencia.setInt(4, idCuentaOrigen);
+            psInsertarTranferencia.executeUpdate();
             conexion.commit();
 
             return true;
@@ -111,6 +125,14 @@ public class CuentaDAO implements ICuentaDAO {
 
                 }
             }
+            if (psInsertarTranferencia != null) {
+                try {
+                    psInsertarTranferencia.close();
+                } catch (SQLException e) {
+
+                }
+            }
+
             if (conexion != null) {
                 try {
                     conexion.close();
@@ -137,17 +159,13 @@ public class CuentaDAO implements ICuentaDAO {
 
             if (result.next()) {
                 Integer id = result.getInt("id");
-                String user = result.getString("usuario");
-                // Integer idCuenta = result.getInt("idCuenta");
-                //JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
                 String nombre = result.getString("nombre");
                 String apellidoPaterno = result.getString("apellidoPaterno");
                 String apellidoMaterno = result.getString("apellidoMaterno");
                 String fechaNacimiento = result.getString("fechaNacimiento");
                 Integer idDireccion = result.getInt("idDireccion");
 
-                //   JOptionPane.showMessageDialog(null, "Si se pudo, ID cuenta y cliente: " + id + " : " + idCuenta);
-                c = new Cliente(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, idDireccion, 0);
+                c = new Cliente(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, cliente.getNip(), cliente.getUsuario());
 
                 return c;
             }
@@ -167,19 +185,16 @@ public class CuentaDAO implements ICuentaDAO {
         ResultSet rs = null;
 
         try {
-            // Obtener la conexión
+
             conexion = this.GENERADOR_CONEXIONES.crearConexion();
-            // Crear la consulta preparada
+
             ps = conexion.prepareStatement(sql);
             ps.setInt(1, idCliente);
 
-            // Ejecutar la consulta
             rs = ps.executeQuery();
 
-            // Limpiar el JComboBox
             comboBoxCuentas.removeAllItems();
 
-            // Agregar las cuentas al JComboBox
             while (rs.next()) {
                 int idCuenta = rs.getInt("id");
                 double tipoCuenta = rs.getDouble("saldo");
@@ -188,7 +203,7 @@ public class CuentaDAO implements ICuentaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Cerrar el ResultSet, la consulta preparada y la conexión
+
             if (rs != null) {
                 try {
                     rs.close();
@@ -214,6 +229,40 @@ public class CuentaDAO implements ICuentaDAO {
     }
 
     @Override
+    public List<Transaccion> consultarTransferencias(ConfiguracionPaginado configPaginado, Integer idCuenta) {
+        String sql = "SELECT * FROM transferencias WHERE idCuenta = ?";
+
+        List<Transaccion> listaTransacciones = new LinkedList<>();
+        try (
+                Connection conexion = this.GENERADOR_CONEXIONES.crearConexion();
+                PreparedStatement comando = conexion.prepareStatement(sql);) {
+
+            comando.setInt(1, idCuenta);
+
+            ResultSet resultado = comando.executeQuery();
+
+            Transaccion trans = null;
+
+            while (resultado.next()) {
+                Integer id = resultado.getInt("id");
+                String estado = resultado.getString("estado");
+                String fecha = resultado.getString("fecha");
+                String tipo = resultado.getString("tipo");
+                double monto = resultado.getDouble("monto");
+             
+                
+                trans = new Transaccion(estado, tipo, id, fecha, idCuenta, monto);
+                listaTransacciones.add(trans);
+            }
+            return listaTransacciones;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error");
+            return null;
+        }
+    }
+
+    @Override
     public Cuenta retirar(String folio, String contrasenia) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -222,27 +271,24 @@ public class CuentaDAO implements ICuentaDAO {
     public Cuenta consultarPorId(int idCuenta) {
         Connection conexion = null;
         try {
-            // Crear la conexión a la base de datos
+
             conexion = this.GENERADOR_CONEXIONES.crearConexion();
 
-            // Crear la consulta SQL
             String sql = "SELECT * FROM cuentas WHERE id = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idCuenta);
 
-            // Ejecutar la consulta y obtener el resultado
             ResultSet rs = ps.executeQuery();
 
-            // Verificar si se encontró la cuenta
             if (rs.next()) {
-                // Crear un objeto de tipo Cuenta con los datos obtenidos
+
                 Cuenta cuenta = new Cuenta();
                 cuenta.setId(rs.getInt("id"));
                 cuenta.setIdCliente(rs.getInt("idCliente"));
                 cuenta.setSaldo(rs.getDouble("saldo"));
                 return cuenta;
             } else {
-                // No se encontró la cuenta
+
                 JOptionPane.showMessageDialog(null, "No se encontró la cuenta con el idCuenta especificado.");
                 return null;
             }
@@ -251,7 +297,7 @@ public class CuentaDAO implements ICuentaDAO {
             JOptionPane.showMessageDialog(null, "Error al consultar la cuenta: " + e.getMessage());
             return null;
         } finally {
-            // Cerrar la conexión
+
             if (conexion != null) {
                 try {
                     conexion.close();
@@ -263,44 +309,51 @@ public class CuentaDAO implements ICuentaDAO {
 
     @Override
     public boolean generarFolio(int idCuenta, double monto, String contrasena) {
-        // Generar el folio aleatorio de retiro
+
         String folio = generarFolioAleatorio();
 
-        // Iniciar la transacción
         Connection conexion = null;
         try {
             conexion = this.GENERADOR_CONEXIONES.crearConexion();
-            conexion.setAutoCommit(false); // Desactivar la auto confirmación de la transacción
+            conexion.setAutoCommit(false);
 
             Cuenta cuenta = consultarPorId(idCuenta);
-            // Verificar que el monto a retirar sea menor o igual al saldo de la cuenta
+
             double saldo = cuenta.getSaldo();
-            JOptionPane.showMessageDialog(null, "Saldo cuenta: " + saldo);
+
             if (monto > saldo) {
                 JOptionPane.showMessageDialog(null, "El monto a retirar es mayor al saldo de la cuenta.");
                 conexion.rollback();
                 return false;
             }
 
-            // Actualizar el saldo de la cuenta
-            double nuevoSaldo = cuenta.getSaldo() - monto;
-            JOptionPane.showMessageDialog(null, "Nuevo saldo cuenta: " + nuevoSaldo);
             if (!actualizarSaldo(cuenta, monto)) {
                 JOptionPane.showMessageDialog(null, "No se pudo actualizar el saldo de la cuenta.");
-                conexion.rollback(); // Deshacer la transacción
+                conexion.rollback();
                 return false;
             }
-            JOptionPane.showMessageDialog(null, "Saldo cuenta: " + saldo);
-            // Insertar el retiro en la tabla de retiros
+
             String sql = "INSERT INTO retiros (estado, monto, folio, contraseña, idCuenta) VALUES (?,?,?,?,?)";
+            String sqlInsertarTransferencia = "INSERT INTO transferencias(estado,tipo, monto, idCuenta) VALUES(?,?,?,?)";
+
             PreparedStatement ps = conexion.prepareStatement(sql);
+            PreparedStatement psTransferencia = conexion.prepareStatement(sqlInsertarTransferencia);
+
             ps.setString(1, "pendiente");
             ps.setDouble(2, monto);
             ps.setString(3, folio);
             ps.setString(4, encriptarContraseña(contrasena));
             ps.setInt(5, idCuenta);
             ps.executeUpdate();
+
+            psTransferencia.setString(1, "exitosa");
+            psTransferencia.setString(2, "Retiro");
+            psTransferencia.setDouble(3, monto);
+            psTransferencia.setInt(4, idCuenta);
+            psTransferencia.executeUpdate();
+
             ps.close();
+            psTransferencia.close();
 
             conexion.commit();
             JOptionPane.showMessageDialog(null, "Retiro realizado con éxito. Folio: " + folio);
@@ -391,7 +444,6 @@ public class CuentaDAO implements ICuentaDAO {
     }
 
     private String generarFolioAleatorio() {
-        // Generar un folio aleatorio de 6 dígitos
         Random random = new Random();
         int folioNumero = random.nextInt(900000) + 100000;
         return String.format("R%06d", folioNumero);

@@ -68,10 +68,12 @@
                   <Component id="inicioSesionBT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="registroBT" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="historialBT" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="crearCuentBT1" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="registroBT" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="historialBT" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">

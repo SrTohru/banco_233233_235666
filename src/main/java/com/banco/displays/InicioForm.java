@@ -180,10 +180,11 @@ public class InicioForm extends javax.swing.JFrame {
                     .addComponent(depositoBT)
                     .addComponent(inicioSesionBT))
                 .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registroBT)
-                    .addComponent(historialBT)
-                    .addComponent(crearCuentBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(crearCuentBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(registroBT)
+                        .addComponent(historialBT)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(actualizaClienteBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,15 +219,21 @@ public class InicioForm extends javax.swing.JFrame {
     }//GEN-LAST:event_depositoBTActionPerformed
 
     private void actualizaClienteBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizaClienteBTActionPerformed
-        new ActualizarClienteForm(clientesDAO).setVisible(true);
+        if (cliente != null) {
+            dispose();
+            new ActualizarClienteForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
+            dispose();
+        } else {
+            mostrarErrorDeposito();
+        }
     }//GEN-LAST:event_actualizaClienteBTActionPerformed
 
     private void historialBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialBTActionPerformed
         // TODO add your handling code here:
 
-        if (cliente != null && cuenta != null) {
+        if (cliente != null) {
             dispose();
-            new HistorialForm(clientesDAO).setVisible(true);
+            new HistorialForm(clientesDAO,cuentaDAO, cliente).setVisible(true);
             dispose();
         } else {
             mostrarErrorDeposito();
@@ -243,10 +250,10 @@ public class InicioForm extends javax.swing.JFrame {
     }//GEN-LAST:event_generarRetiroBTActionPerformed
 
     private void crearCuentBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearCuentBT1ActionPerformed
-        if(cliente != null){
+        if (cliente != null) {
             dispose();
             new RegistrarCuentaForm(cliente, clientesDAO, cuentaDAO).setVisible(true);
-        }else{
+        } else {
             mostrarErrorDeposito();
         }
     }//GEN-LAST:event_crearCuentBT1ActionPerformed

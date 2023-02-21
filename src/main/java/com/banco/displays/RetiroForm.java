@@ -66,7 +66,7 @@ private final ICuentaDAO cuentaDAO;
         });
 
         generarFolioBT.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
-        generarFolioBT.setText("Generar");
+        generarFolioBT.setText("Retirar");
         generarFolioBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generarFolioBTActionPerformed(evt);
@@ -74,7 +74,7 @@ private final ICuentaDAO cuentaDAO;
         });
 
         cancelarBT.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
-        cancelarBT.setText("Generar");
+        cancelarBT.setText("Cancelar");
         cancelarBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarBTActionPerformed(evt);
@@ -85,15 +85,6 @@ private final ICuentaDAO cuentaDAO;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(169, 169, 169))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cancelarBT)
-                        .addGap(69, 69, 69))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -108,11 +99,20 @@ private final ICuentaDAO cuentaDAO;
                             .addComponent(cantidadTF, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(207, 207, 207)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
-                        .addComponent(generarFolioBT)))
+                        .addComponent(jLabel1)))
                 .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(169, 169, 169))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(generarFolioBT)
+                        .addGap(262, 262, 262))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cancelarBT)
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,9 +133,9 @@ private final ICuentaDAO cuentaDAO;
                 .addComponent(cantidadTF, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(generarFolioBT)
-                .addGap(11, 11, 11)
+                .addGap(18, 18, 18)
                 .addComponent(cancelarBT)
-                .addGap(19, 19, 19))
+                .addGap(12, 12, 12))
         );
 
         pack();

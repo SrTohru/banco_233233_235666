@@ -40,10 +40,21 @@ public class DepositoForm extends javax.swing.JFrame {
 
         try {
             cuentaDAO.transferir(idOrigen, idDestino, montoDeposito);
+            mostrarMensajeDepositoHecho(idOrigen, idDestino);
             return true;
         } catch (Exception e) {
-        return false;
+            mostrarMensajeErroDeposito();
+            return false;
         }
+    }
+
+    private void mostrarMensajeDepositoHecho(int idOrigen, int idDestino) {
+        JOptionPane.showMessageDialog(this, "Se realizo el deposito a: " + idDestino + ", proveniente de: " + idOrigen,
+                "Información ", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void mostrarMensajeErroDeposito() {
+        JOptionPane.showMessageDialog(this, "No fue posible realizar el deposito", "Error", JOptionPane.OK_OPTION);
     }
 
     @SuppressWarnings("unchecked")
@@ -95,12 +106,6 @@ public class DepositoForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(234, 234, 234)
-                .addComponent(depositarBT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                .addComponent(cancelarBT)
-                .addGap(19, 19, 19))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(111, 111, 111)
@@ -121,14 +126,23 @@ public class DepositoForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(241, 241, 241)
                         .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cancelarBT)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(depositarBT)
+                        .addGap(168, 168, 168))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,14 +154,11 @@ public class DepositoForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cantidadTF, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(212, 212, 212)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(depositarBT)
-                        .addGap(42, 42, 42))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cancelarBT)
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(depositarBT)
+                .addGap(18, 18, 18)
+                .addComponent(cancelarBT)
+                .addContainerGap())
         );
 
         pack();
@@ -155,18 +166,30 @@ public class DepositoForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void depositarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositarBTActionPerformed
-        if(realizarDeposito()){
-            JOptionPane.showMessageDialog(null, "Se realizo el deposito");
-        }else{
-             JOptionPane.showMessageDialog(null, "No se realizo el deposito");
+        if (realizarDeposito()) {
+            dispose();
+            
+            
+            if (cliente != null) {
+                new InicioForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
+            } else {
+                new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
+            }
+        } else {
+            dispose();
+            if (cliente != null) {
+                new InicioForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
+            } else {
+                new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
+            }
         }
     }//GEN-LAST:event_depositarBTActionPerformed
 
     private void cancelarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBTActionPerformed
         dispose();
-        if(cliente != null){
+        if (cliente != null) {
             new InicioForm(clientesDAO, cuentaDAO, cliente).setVisible(true);
-        }else{
+        } else {
             new InicioForm(clientesDAO, cuentaDAO).setVisible(true);
         }
     }//GEN-LAST:event_cancelarBTActionPerformed
