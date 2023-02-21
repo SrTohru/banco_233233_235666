@@ -10,7 +10,6 @@ import com.banco.dominio.Transaccion;
 import com.banco.implementaciones.ClienteDAO;
 import com.banco.interfaces.IClienteDAO;
 import com.banco.interfaces.ICuentaDAO;
-import static com.sun.tools.sjavac.options.Option.LOG;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
@@ -51,7 +50,17 @@ public class HistorialForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error");
         }
     }
+    
+    private void avanzarPagina(){
+        this.configPaginado.avanzarPagina();
+        this.cargarTablaTransacciones();
+    }
 
+    private void retrocederPagina(){
+        this.configPaginado.retrocederPagina();
+        this.cargarTablaTransacciones();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -66,6 +75,9 @@ public class HistorialForm extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         regresarBT1 = new javax.swing.JButton();
+        retrocederBT = new javax.swing.JButton();
+        avanzarBT = new javax.swing.JButton();
+        jComboBox3 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,10 +134,32 @@ public class HistorialForm extends javax.swing.JFrame {
             }
         });
 
+        retrocederBT.setText("<Retroceder");
+        retrocederBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retrocederBTActionPerformed(evt);
+            }
+        });
+
+        avanzarBT.setText("Avanzar >");
+        avanzarBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avanzarBTActionPerformed(evt);
+            }
+        });
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "5", "10" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(regresarBT)
+                .addGap(151, 151, 151)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -138,7 +172,14 @@ public class HistorialForm extends javax.swing.JFrame {
                         .addGap(125, 125, 125)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(retrocederBT)
+                                .addGap(127, 127, 127)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(avanzarBT))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -148,12 +189,6 @@ public class HistorialForm extends javax.swing.JFrame {
                                 .addComponent(regresarBT1)
                                 .addGap(142, 142, 142)))))
                 .addGap(28, 28, 28))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(regresarBT)
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,16 +215,17 @@ public class HistorialForm extends javax.swing.JFrame {
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(regresarBT1)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(retrocederBT)
+                    .addComponent(avanzarBT)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    public void obtenerDatos() {
-       
-    }
 
     private void regresarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBTActionPerformed
         // TODO add your handling code here:
@@ -198,13 +234,25 @@ public class HistorialForm extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarBTActionPerformed
 
     private void regresarBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBT1ActionPerformed
- cargarTablaTransacciones();
+        cargarTablaTransacciones();
     }//GEN-LAST:event_regresarBT1ActionPerformed
+
+    private void retrocederBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrocederBTActionPerformed
+        // TODO add your handling code here:
+        avanzarPagina();
+    }//GEN-LAST:event_retrocederBTActionPerformed
+
+    private void avanzarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzarBTActionPerformed
+        // TODO add your handling code here:
+        retrocederPagina();
+    }//GEN-LAST:event_avanzarBTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton avanzarBT;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -212,6 +260,7 @@ public class HistorialForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton regresarBT;
     private javax.swing.JButton regresarBT1;
+    private javax.swing.JButton retrocederBT;
     private javax.swing.JTable tablaHistorial;
     // End of variables declaration//GEN-END:variables
 }

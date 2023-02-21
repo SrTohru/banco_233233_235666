@@ -113,7 +113,6 @@ public class InicioForm extends javax.swing.JFrame {
         });
 
         actualizaClienteBT.setBackground(new java.awt.Color(255, 255, 255));
-        actualizaClienteBT.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         actualizaClienteBT.setForeground(new java.awt.Color(0, 0, 0));
         actualizaClienteBT.setText("Actualizar cliente");
         actualizaClienteBT.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +122,6 @@ public class InicioForm extends javax.swing.JFrame {
         });
 
         generarRetiroBT.setBackground(new java.awt.Color(255, 255, 255));
-        generarRetiroBT.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         generarRetiroBT.setForeground(new java.awt.Color(0, 0, 0));
         generarRetiroBT.setText("Generar retiro");
         generarRetiroBT.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +187,7 @@ public class InicioForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(actualizaClienteBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(generarRetiroBT, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
