@@ -7,7 +7,7 @@ create database banco;
 use banco;
 
 CREATE TABLE Direcciones (
-	id bigint primary key auto_increment,
+    id bigint primary key auto_increment,
     calle varchar(50) not null,
     colonia varchar(50) not null,
     numExterior varchar(20) not null
